@@ -1,0 +1,42 @@
+# General
+alias szsh='source ~/.zshrc'
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias archupdate='sudo pacman -Syu'
+alias uninst='sudo pacman -R'
+alias ls='ls --color=auto'
+alias ll='ls -l'
+alias -g L=' | less'
+alias inst='sudo pacman -S'
+
+# Quickstart apps
+alias alsamixer='alsamixer -c 0'
+alias rr='ranger'
+alias vim='nvim'
+alias bazecor='~/exchange/software/startBazecore.sh'
+alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
+
+# cd to favourite dirs
+alias cdd='cd ~/Downloads'
+alias cdu='cd ~/Dokumente/Uni'
+alias cdp='cd ~/Dokumente/Privat'
+alias cdsr='cd ~/Dokumente/Uni/Sysprog/Repo/systemprogrammierung/'
+alias cdt='cd ~/tubcloud'
+
+# edit configs with vim
+alias vzr='nvim ~/.zshrc'
+alias vza='nvim ~/.zsh_aliases'
+alias vaw='nvim ~/.config/awesome/rc.lua'
+alias vvi="nvim ~/.config/nvim/init.vim"
+
+# edit configs with vs code
+alias czr='code ~/.zshrc'
+alias cza='code ~/.zsh_aliases'
+alias caw='code ~/.config/awesome/rc.lua'
+alias cvi="code ~/.config/nvim/init.vim"
+
+# python related
+alias cac='conda activate'
+alias cdc='conda deactivate'
+alias py='python3'
+alias pinst='python3 -m pip install'
+

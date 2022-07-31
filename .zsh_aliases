@@ -12,7 +12,6 @@ alias inst='sudo pacman -S'
 alias alsamixer='alsamixer -c 0'
 alias rr='ranger'
 alias vim='nvim'
-alias bazecor='~/exchange/software/startBazecore.sh'
 alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
 
 # cd to favourite dirs

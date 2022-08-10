@@ -34,8 +34,24 @@ nnoremap <C-s> <ESC>:w<CR>
 inoremap <C-q> <ESC>:q<CR>
 nnoremap <C-q> <ESC>:q<CR>
 
-"autoclose
+" work with splits
+inoremap <A-v> <ESC>:vsplit<CR> :wincmd l <CR>
+nnoremap <A-v> <ESC>:vsplit<CR> :wincmd l <CR>
 
+inoremap <A-s> <ESC>:split<CR> :wincmd j <CR>
+nnoremap <A-s> <ESC>:split<CR> :wincmd j <CR>
+
+inoremap <A-h> <ESC>:wincmd h<CR>
+nnoremap <A-h> <ESC>:wincmd h<CR>
+
+inoremap <A-l> <ESC>:wincmd l<CR>
+nnoremap <A-l> <ESC>:wincmd l<CR>
+
+nnoremap <A-j> <ESC>:wincmd j<CR>
+inoremap <A-j> <ESC>:wincmd j<CR>
+
+inoremap <A-k> <ESC>:wincmd k<CR>
+nnoremap <A-k> <ESC>:wincmd k<CR>
 
 :set nu
 :set rnu

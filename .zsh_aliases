@@ -1,12 +1,16 @@
 # General
 alias szsh='source ~/.zshrc'
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-alias archupdate='sudo pacman -Syu'
-alias uninst='sudo pacman -R'
 alias ls='ls --color=auto'
-alias ll='ls -l'
+alias ll='ls -lisa'
 alias -g L=' | less'
+
+# Packages
+alias archupdate='sudo pacman -Syu'
+alias cleanyaycache='yay -Sc'
+alias cleancache='paccache -r'
 alias inst='sudo pacman -S'
+alias uninst='sudo pacman -R'
 
 # Quickstart apps
 alias alsamixer='alsamixer -c 0'
@@ -39,3 +43,6 @@ alias cdc='conda deactivate'
 alias py='python3'
 alias pinst='python3 -m pip install'
 
+
+# Network
+alias sshpi='ssh timo@192.168.0.17'

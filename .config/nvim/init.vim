@@ -1,7 +1,10 @@
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/nerdtree'
+Plug 'tomasiser/vim-code-dark'
 call plug#end()
+
+" colorscheme codedark
 " keybindings 
 
 " toggle nerdtree

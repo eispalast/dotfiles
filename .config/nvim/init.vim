@@ -2,11 +2,14 @@ call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/nerdtree'
 Plug 'tomasiser/vim-code-dark'
+Plug 'junegunn/rainbow_parentheses.vim'
 call plug#end()
 
 " colorscheme codedark
 " keybindings 
-
+"
+set termguicolors
+colorscheme vsc
 " toggle nerdtree
 inoremap <C-t> <ESC>:NERDTreeToggle<CR>
 nnoremap <C-t> <ESC>:NERDTreeToggle<CR>
@@ -56,6 +59,8 @@ inoremap <A-j> <ESC>:wincmd j<CR>
 inoremap <A-k> <ESC>:wincmd k<CR>
 nnoremap <A-k> <ESC>:wincmd k<CR>
 
+inoremap <A-p> <ESC>:echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
+nnoremap <A-p> <ESC>:echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
 :set nu
 :set rnu
 :set tabstop=4

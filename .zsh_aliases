@@ -1,8 +1,8 @@
 # General
 alias szsh='source ~/.zshrc'
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-alias ls='ls --color=auto'
-alias ll='ls -lisa'
+alias ls='exa'
+alias ll='exa -la'
 alias -g L=' | less'
 
 # Packages

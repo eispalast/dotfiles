@@ -5,6 +5,7 @@
 
 :hi Statement guifg=#569cd6
 :hi LineNr guifg=#848586
+:hi NonText guifg=#232323
 :hi Identifier guifg=#dbdbaa
 :hi Type guifg=#50c9b0 gui=NONE
 :hi String guifg=#cd9279
@@ -24,3 +25,7 @@
 :hi link cConstant Number
 :hi link cCustomFunc Function 
 :hi cCustomOperator guifg=#d3d4d4
+
+
+:hi Pmenu guifg=#d3d4d4 guibg=#363636
+:hi PmenuSel guifg=#d3d4d4 guibg=#4a4a4a gui=bold

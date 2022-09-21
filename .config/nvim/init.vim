@@ -3,7 +3,15 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/nerdtree'
 Plug 'tomasiser/vim-code-dark'
 Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'luochen1990/rainbow'
 call plug#end()
+
+
+
+let g:rainbow_active = 1
+let g:rainbow_conf = {'guifgs': ['#da70d6', '#199eff', '#fcd603', '#cf7b57']}
+
+
 
 " colorscheme codedark
 " keybindings 
@@ -64,3 +72,20 @@ nnoremap <A-p> <ESC>:echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
 :set nu
 :set rnu
 :set tabstop=4
+
+
+autocmd FileType * let b:coc_pairs_disabled = ["<"]
+
+" Open curly brackets in a smart way (I hope)
+func GetBuch()
+		let current = getline(".")[col(".")-2]
+		if current == '{'
+				if getline(".")[col(".")-1] == "}"
+						return v:true
+				endif
+		endif
+		return v:false
+endfunc
+
+
+inoremap <expr> <CR> GetBuch() ? "\<CR>\<ESC>O" : "\<CR>"

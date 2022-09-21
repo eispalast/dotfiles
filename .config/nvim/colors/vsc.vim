@@ -3,7 +3,7 @@
 
 :hi Normal guifg=#9ddbfe
 
-:hi Statement guifg=#569cd6
+:hi Statement guifg=#569cd6 gui=None
 :hi LineNr guifg=#848586
 :hi NonText guifg=#232323
 :hi Identifier guifg=#dbdbaa
@@ -18,6 +18,7 @@
 
 :hi Macro guifg=#dbdbaa
 
+" C
 :hi cPink guifg=#c587c0
 :hi link cStatement cPink
 :hi link cInclude cPink
@@ -26,6 +27,13 @@
 :hi link cCustomFunc Function 
 :hi cCustomOperator guifg=#d3d4d4
 
-
+" Pmenu
 :hi Pmenu guifg=#d3d4d4 guibg=#363636
 :hi PmenuSel guifg=#d3d4d4 guibg=#4a4a4a gui=bold
+
+
+" Rust
+
+:hi link rustCommentLineDoc Comment
+:hi link rustModPath Type
+:hi link rustIdentifier rustModPath 

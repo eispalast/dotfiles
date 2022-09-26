@@ -84,5 +84,5 @@ setopt auto_cd
 if [ -f ~/.zsh_aliases ]; then
 	. ~/.zsh_aliases
 fi
-export PATH="/home/timo/exchange/software:$PATH"
+export PATH="/home/timo/exchange/software:/home/timo/scripts:$PATH"
 

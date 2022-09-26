@@ -121,6 +121,7 @@ inoremap jk <ESC>
 " Debugging
 
 nmap <leader>dd :call vimspector#Launch()<CR>
+nmap <leader>db :make<CR> :call vimspector#Launch()<CR>
 nmap <leader>dx :VimspectorReset<CR>
 nmap <leader>de :VimspectorEval
 nmap <leader>dw :VimspectorWatch

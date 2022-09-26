@@ -410,7 +410,9 @@ root.buttons(gears.table.join(
 -- }}}
 
 local function volume_control(device, updown)
-    awful.spawn.with_shell("amixer -c 0 set "..device.." '2%"..updown.."' -M 1>/dev/null");
+    awful.spawn.with_shell("amixer -c 0 set "..device.." '3%"..updown.."' -M 1>/dev/null");
+	awful.spawn.with_shell("amixer -c 0 set Master unmute ");
+	awful.spawn.with_shell("amixer -c 0 set "..device.." unmute");
 end
 
 local function volume_toggle_mute(device)

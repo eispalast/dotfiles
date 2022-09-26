@@ -13,6 +13,8 @@
 :hi PreProc guifg=#dbdbaa
 :hi Comment guifg=#6a9957
 
+:hi Title guifg=#9ddbfe gui=bold
+
 :hi link Conditional generalPink
 :hi link Repeat Conditional
 
@@ -33,7 +35,11 @@
 
 
 " Rust
-
 :hi link rustCommentLineDoc Comment
 :hi link rustModPath Type
 :hi link rustIdentifier rustModPath 
+
+" Filesystem
+:hi Directory guifg=#50c9b0
+:hi NERDTreeExecFile guifg=#da70d6
+":hi Title gui=bold

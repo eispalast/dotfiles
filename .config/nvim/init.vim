@@ -1,26 +1,69 @@
+let g:vimspector_enable_mappings = 'HUMAN'
+
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/nerdtree'
 Plug 'tomasiser/vim-code-dark'
-Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'luochen1990/rainbow'
+Plug 'puremourning/vimspector'
 call plug#end()
 
+let mapleader = "," " map leader to comma
 
 
+" Rainbow parentheses
 let g:rainbow_active = 1
 let g:rainbow_conf = {'guifgs': ['#da70d6', '#199eff', '#fcd603', '#cf7b57']}
 
 
-
-" colorscheme codedark
-" keybindings 
-"
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" colorscheme
 set termguicolors
 colorscheme vsc
-" toggle nerdtree
-inoremap <C-t> <ESC>:NERDTreeToggle<CR>
-nnoremap <C-t> <ESC>:NERDTreeToggle<CR>
+
+" keybindings 
+
+" extended NERDTreeFeatures
+" Open the existing NERDTree on each new tab.
+
+
+autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
+let n_tree_open = 0
+let n_tree_active = 0
+func NT_toggle()
+		call feedkeys("\<ESC>:NERDTreeToggle\<CR>")
+		if g:n_tree_open == 1
+				let g:n_tree_open = 0
+		else
+				let g:n_tree_open = 1 
+		endif
+			
+endfunc
+func NT_smart_tab_switch()
+		if g:n_tree_open ==1
+				call feedkeys("\<ESC> gt :NERDTreeFind\<CR> :wincmd l \<CR>")
+		else
+				call feedkeys("\<ESC>gt :NERDTreeClose\<CR> ")
+				
+		endif
+
+endfunc
+
+func Smart_exit()
+		if g:n_tree_open == 1
+				call feedkeys("\<ESC>:NERDTreeClose\<CR> :q \<CR> ")
+		else
+				call feedkeys("\<ESC>:q\<CR>")
+		endif
+
+endfunc		
+inoremap <expr> <C-t> NT_toggle() 
+nnoremap <expr> <C-t> NT_toggle() 
+
+nnoremap <expr> <C-ü> NT_smart_tab_switch() 
 
 " move line 
 inoremap <A-Down> <ESC> ddpi
@@ -45,8 +88,8 @@ inoremap <C-s> <ESC>:w<CR>
 nnoremap <C-s> <ESC>:w<CR>
 
 " quick exit
-inoremap <C-q> <ESC>:q<CR>
-nnoremap <C-q> <ESC>:q<CR>
+inoremap <expr> <C-q> Smart_exit()
+nnoremap <expr> <C-q> Smart_exit()
 
 " work with splits
 inoremap <A-v> <ESC>:vsplit<CR> :wincmd l <CR>
@@ -73,11 +116,21 @@ nnoremap <A-p> <ESC>:echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
 :set rnu
 :set tabstop=4
 
+inoremap jk <ESC>
 
+" Debugging
+
+nmap <leader>dd :call vimspector#Launch()<CR>
+nmap <leader>dx :VimspectorReset<CR>
+nmap <leader>de :VimspectorEval
+nmap <leader>dw :VimspectorWatch
+nmap <leader>do :VimspectorShowOutput
+
+" Working with pairs 
 autocmd FileType * let b:coc_pairs_disabled = ["<"]
 
 " Open curly brackets in a smart way (I hope)
-func GetBuch()
+func Between_curly()
 		let current = getline(".")[col(".")-2]
 		if current == '{'
 				if getline(".")[col(".")-1] == "}"
@@ -88,4 +141,4 @@ func GetBuch()
 endfunc
 
 
-inoremap <expr> <CR> GetBuch() ? "\<CR>\<ESC>O" : "\<CR>"
+inoremap <expr> <CR> Between_curly() ? "\<CR>\<ESC>O" : "\<CR>"

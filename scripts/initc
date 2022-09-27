@@ -11,8 +11,9 @@ try:
 except:
     print("Directory is already initialized")
     exit(1)
-
-pr_name = input("Insert project name: ")
+pr_name = input("Insert project name:")
+while pr_name.strip() == "":
+    pr_name = input("(Name must not be empty) Insert project name: ")
 
 mainfile_template = open(f"{TEMPLATES_DIR}/main.c","r").read()
 mainfile_template = mainfile_template.replace("PROJECT_NAME",pr_name)

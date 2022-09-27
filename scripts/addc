@@ -1,0 +1,46 @@
+#!/bin/python3
+import os, sys 
+
+TEMPLATES_DIR = "/home/timo/scripts/templates"
+pwd = os.getcwd()
+
+
+if len(sys.argv) > 1:
+    filenames = sys.argv[1:]
+else:
+    filename = input("Insert file name:")
+    while filename.strip() == "" or  " " in filename:
+        print(filename)
+        filename = input("(Name must not be empty) Insert file name: ")
+    filenames = [filename]
+
+for filename in filenames:
+    cfile_template = open(f"{TEMPLATES_DIR}/cfile.c","r").read()
+    cfile_template = cfile_template.replace("FILENAME",filename)
+    cfile = open(f"{pwd}/src/{filename}.c","w")
+    cfile.write(cfile_template)
+    cfile.close()
+
+
+    headerfile_template = open(f"{TEMPLATES_DIR}/cheader.h","r").read()
+    headerfile_template = headerfile_template.replace("FILENAME",filename.upper())
+
+    headerfile = open(f"{pwd}/lib/{filename}.h","w")
+    headerfile.write(headerfile_template)
+    headerfile.close()
+
+    # add to Makefile   
+    new_makefile = open(f"{pwd}/Makefile_temp","w")
+    with open(f"{pwd}/Makefile","r") as makefile_old:
+        makefile_lines = makefile_old.readlines()
+        for line in makefile_lines:
+            if "OBJFILES" in line and ":=" in line:
+                new_line = f"OBJFILES\t:= src/{filename}.o \\\n"
+                old_line = "\t\t\t\t"+line.split('=')[1]
+                new_makefile.write(new_line)
+                new_makefile.write(old_line)
+            else:
+                new_makefile.write(line)
+    new_makefile.close()
+    os.rename(f"{pwd}/Makefile",f"{pwd}/.Makefile_old")
+    os.rename(f"{pwd}/Makefile_temp",f"{pwd}/Makefile")

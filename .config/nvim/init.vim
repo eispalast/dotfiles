@@ -122,6 +122,7 @@ inoremap jk <ESC>
 
 nmap <leader>dd :call vimspector#Launch()<CR>
 nmap <leader>db :make<CR> :call vimspector#Launch()<CR>
+nmap <F29> :make<CR> :call vimspector#Launch()<CR> " F29= CTRL+F5
 nmap <leader>dx :VimspectorReset<CR>
 nmap <leader>de :VimspectorEval
 nmap <leader>dw :VimspectorWatch

@@ -35,7 +35,7 @@ for filename in filenames:
         makefile_lines = makefile_old.readlines()
         for line in makefile_lines:
             if "OBJFILES" in line and ":=" in line:
-                new_line = f"OBJFILES\t:= src/{filename}.o \\\n"
+                new_line = f"OBJFILES\t:= build/{filename}.o \\\n"
                 old_line = "\t\t\t\t"+line.split('=')[1]
                 new_makefile.write(new_line)
                 new_makefile.write(old_line)

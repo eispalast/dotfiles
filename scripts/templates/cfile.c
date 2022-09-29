@@ -1,1 +1,1 @@
-#import "../lib/FILENAME.h"
+#include "../lib/FILENAME.h"

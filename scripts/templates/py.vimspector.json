@@ -1,0 +1,19 @@
+{
+    "configurations": {
+      "<name>: Launch": {
+        "adapter": "debugpy",
+        "filetypes": [ "python" ],
+        "configuration": {
+          "name": "<PROJECT_NAME.py>: Launch",
+          "type": "python",
+          "request": "launch",
+          "cwd": "PROJECT_PATH",
+          "python": "/usr/bin/python3",
+          "stopOnEntry": true,
+          "console": "externalTerminal",
+          "debugOptions": [],
+          "program": "PROJECT_NAME.py"
+        }
+      }
+    }
+  }

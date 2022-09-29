@@ -4,7 +4,7 @@
 						"adapter":"vscode-cpptools",
 						"configuration":{
 								"request":"launch",
-								"program":"PROJECT_NAME",
+								"program":"build/PROJECT_NAME",
 								"cwd":"PROJECT_PATH",
 								"externalConsole":true,
 								"MIMode":"gdb"

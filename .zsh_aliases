@@ -13,6 +13,7 @@ alias inst='sudo pacman -S'
 alias uninst='sudo pacman -R'
 
 # Quickstart apps
+alias hx='helix'
 alias alsamixer='alsamixer -c 0'
 alias rr='ranger'
 alias vim='nvim'

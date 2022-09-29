@@ -1,16 +1,16 @@
 NAME		:= PROJECT_NAME
-OBJFILES	:= src/PROJECT_NAME.o 
+OBJFILES	:= build/PROJECT_NAME.o 
 CFLAGS		:= -Wall -g
 CC			:= clang
 
-$(NAME): $(OBJFILES)
+build/$(NAME): $(OBJFILES)
 	$(CC) $(CFLAGS) -o $@ $^
 
-%.o: %.c
+build/%.o: src/%.c
 	$(CC) $(CFLAGS) -c -o $@ $^
 
-run: $(NAME)
-	./$(NAME)
+run: build/$(NAME)
+	./build/$(NAME)
 
 clean:
-	rm -f $(NAME) $(OBJFILES)
+	rm -f build/* 

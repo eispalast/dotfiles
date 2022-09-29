@@ -5,13 +5,6 @@ import subprocess
 TEMPLATES_DIR = "/home/timo/scripts/templates"
 pwd = os.getcwd()
 
-try:
-    os.makedirs(pwd+"/lib")
-    os.makedirs(pwd+"/src")
-    os.makedirs(pwd+"/build")
-except:
-    print("Directory is already initialized")
-    exit(1)
 if len(sys.argv) >= 2:
     pr_name = sys.argv[1]
 else:
@@ -19,22 +12,15 @@ else:
     while pr_name.strip() == "":
         pr_name = input("(Name must not be empty) Insert project name: ")
 
-mainfile_template = open(f"{TEMPLATES_DIR}/main.c","r").read()
-mainfile_template = mainfile_template.replace("PROJECT_NAME",pr_name)
-mainfile = open(f"{pwd}/src/{pr_name}.c","w")
-mainfile.write(mainfile_template)
-mainfile.close()
+if not os.path.exists(f"{pwd}/{pr_name}"):
+    mainfile_template = open(f"{TEMPLATES_DIR}/main.py","r").read()
+    mainfile_template = mainfile_template.replace("PROJECT_NAME",pr_name)
+    mainfile = open(f"{pwd}/{pr_name}.py","w")
+    mainfile.write(mainfile_template)
+    mainfile.close()
 
 
-makefile_template = open(f"{TEMPLATES_DIR}/Makefile","r").read()
-makefile_template = makefile_template.replace("PROJECT_NAME",pr_name)
-
-makefile = open(f"{pwd}/Makefile","w")
-makefile.write(makefile_template)
-makefile.close()
-
-
-debugconf_template = open(f"{TEMPLATES_DIR}/c.vimspector.json","r").read()
+debugconf_template = open(f"{TEMPLATES_DIR}/py.vimspector.json","r").read()
 debugconf_template = debugconf_template.replace("PROJECT_NAME",pr_name).replace("PROJECT_PATH",pwd)
 
 debugconf = open(f"{pwd}/.vimspector.json","w")
@@ -42,9 +28,10 @@ debugconf.write(debugconf_template)
 debugconf.close()
 
 
+
 ret_val = subprocess.run(["git","status"],stderr=subprocess.DEVNULL,stdout=subprocess.DEVNULL)
 if ret_val.returncode != 0:
     gitignore = open(f"{pwd}/.gitignore","w")
-    gitignore.write("build/*\n.Makefile_old")
+    gitignore.write("")
     gitignore.close()
     subprocess.run(["git", "init"])

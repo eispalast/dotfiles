@@ -1,11 +1,11 @@
 let g:vimspector_enable_mappings = 'HUMAN'
-
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/nerdtree'
 Plug 'tomasiser/vim-code-dark'
 Plug 'luochen1990/rainbow'
 Plug 'puremourning/vimspector'
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 let mapleader = "," " map leader to comma
@@ -13,7 +13,12 @@ let mapleader = "," " map leader to comma
 
 " Rainbow parentheses
 let g:rainbow_active = 1
-let g:rainbow_conf = {'guifgs': ['#da70d6', '#199eff', '#fcd603', '#cf7b57']}
+let g:rainbow_conf = 	{
+							\'guifgs': ['#da70d6', '#199eff', '#fcd603', '#cf7b57'],
+							\'separately':{
+								\'nerdtree':0
+							\}
+						\}
 
 
 nmap <silent> gd <Plug>(coc-definition)
@@ -115,7 +120,7 @@ nnoremap <A-p> <ESC>:echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
 :set nu
 :set rnu
 :set tabstop=4
-
+:set shiftwidth=4
 inoremap jk <ESC>
 
 " Debugging

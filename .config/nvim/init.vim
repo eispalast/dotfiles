@@ -117,10 +117,15 @@ nnoremap <A-k> <ESC>:wincmd k<CR>
 
 inoremap <A-p> <ESC>:echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
 nnoremap <A-p> <ESC>:echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
+
+
 :set nu
 :set rnu
 :set tabstop=4
 :set shiftwidth=4
+set nowrap
+set ignorecase
+set smartcase
 inoremap jk <ESC>
 
 " Debugging
@@ -149,3 +154,34 @@ endfunc
 
 
 inoremap <expr> <CR> Between_curly() ? "\<CR>\<ESC>O" : "\<CR>"
+
+func Increase_num()
+	let current = getline(".")[col(".")-1]
+	if current >= '0' && current <= '9'
+		if current == '9'
+			let new = '0'
+		else
+			let new = current+1
+		endif
+		call feedkeys("r")
+		call feedkeys (new)
+	endif
+endfunc
+
+
+func Decrease_num()
+	let current = getline(".")[col(".")-1]
+	if current >= '0' && current <= '9'
+		if current == '0'
+			let new = '9'
+		else
+			let new = current-1
+		endif
+		call feedkeys("r")
+		call feedkeys (new)
+	endif
+endfunc
+
+
+nnoremap + <ESC>:call Increase_num()<CR>
+nnoremap - :call Decrease_num()<CR>

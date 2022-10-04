@@ -9,6 +9,7 @@ run() {
 
 run "xrandr --output eDP-1 --mode 2256x1504 --set 'scaling mode' 'None' --pos 0x0 --rotate normal --rate 60 --dpi 144"
 run "keepassxc"
+run "kdeconnect-indicator"
 picom --config ~/.config/picom/picom.conf -b
 #run "kdeconnect-indicator"
 

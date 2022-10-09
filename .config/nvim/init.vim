@@ -126,6 +126,7 @@ nnoremap <A-p> <ESC>:echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
 set nowrap
 set ignorecase
 set smartcase
+set scrolloff=5
 inoremap jk <ESC>
 
 " Debugging

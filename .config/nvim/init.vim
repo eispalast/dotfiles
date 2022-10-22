@@ -2,6 +2,7 @@ let g:vimspector_enable_mappings = 'HUMAN'
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/nerdtree'
+Plug 'preservim/nerdcommenter'
 Plug 'tomasiser/vim-code-dark'
 Plug 'luochen1990/rainbow'
 Plug 'puremourning/vimspector'
@@ -118,6 +119,7 @@ nnoremap <A-k> <ESC>:wincmd k<CR>
 inoremap <A-p> <ESC>:echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
 nnoremap <A-p> <ESC>:echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
 
+vnoremap <C-7> <ESC>:call nerdcommenter#Comment('x','toggle')<CR>
 
 :set nu
 :set rnu
@@ -128,7 +130,7 @@ set ignorecase
 set smartcase
 set scrolloff=5
 inoremap jk <ESC>
-
+filetype plugin on
 " Debugging
 
 nmap <leader>dd :call vimspector#Launch()<CR>

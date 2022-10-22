@@ -43,7 +43,8 @@ alias cac='conda activate'
 alias cdc='conda deactivate'
 alias py='python3'
 alias pinst='python3 -m pip install'
-
+alias varac='source ~/exchange/envs/var/bin/activate'
+alias vardc='deactivate'
 
 # Network
 alias sshpi='ssh timo@192.168.0.17'

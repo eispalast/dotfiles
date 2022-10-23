@@ -12,14 +12,6 @@ call plug#end()
 let mapleader = "," " map leader to comma
 
 
-" Rainbow parentheses
-let g:rainbow_active = 1
-let g:rainbow_conf = 	{
-							\'guifgs': ['#da70d6', '#199eff', '#fcd603', '#cf7b57'],
-							\'separately':{
-								\'nerdtree':0
-							\}
-						\}
 
 
 nmap <silent> gd <Plug>(coc-definition)
@@ -30,6 +22,14 @@ nmap <silent> gr <Plug>(coc-references)
 set termguicolors
 colorscheme vsc
 
+" Rainbow parentheses
+let g:rainbow_active = 1
+let g:rainbow_conf = 	{
+							\'guifgs': ['#da70d6', '#199eff','#cf7b57', '#fcd603' ],
+							\'separately':{
+								\'nerdtree':0
+							\}
+						\}
 " keybindings 
 
 " extended NERDTreeFeatures

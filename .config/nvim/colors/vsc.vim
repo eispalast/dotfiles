@@ -28,6 +28,9 @@
 :hi link cConstant Number
 :hi link cCustomFunc Function 
 :hi cCustomOperator guifg=#d3d4d4
+:hi link cFormat Normal
+:hi link cSpecial Function
+:hi link cDefine cInclude
 
 " Pmenu
 :hi Pmenu guifg=#d3d4d4 guibg=#363636

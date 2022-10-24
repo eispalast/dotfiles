@@ -11,7 +11,7 @@
 :hi String guifg=#cd9279
 :hi Number guifg=#b5cda9
 :hi PreProc guifg=#dbdbaa
-:hi Comment guifg=#6a9957
+:hi Comment guifg=#6a9957 gui=italic
 
 :hi Title guifg=#9ddbfe gui=bold
 
@@ -20,6 +20,7 @@
 
 :hi Macro guifg=#dbdbaa
 
+:hi Folded guibg=#585A70 guifg=NONE
 " C
 :hi cPink guifg=#c587c0
 :hi link cStatement cPink

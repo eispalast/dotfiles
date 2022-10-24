@@ -25,7 +25,7 @@ colorscheme vsc
 " Rainbow parentheses
 let g:rainbow_active = 1
 let g:rainbow_conf = 	{
-							\'guifgs': ['#da70d6', '#199eff','#cf7b57', '#fcd603' ],
+							\'guifgs': ['#fcd603','#da70d6', '#199eff','#cf7b57'  ],
 							\'separately':{
 								\'nerdtree':0
 							\}

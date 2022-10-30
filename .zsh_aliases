@@ -1,9 +1,13 @@
 # General
 alias szsh='source ~/.zshrc'
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-alias ls='exa'
-alias ll='exa -la'
 alias -g L=' | less'
+
+#ls
+alias ll='exa -la --header --icons'
+alias llt='exa -la --header --icons --sort=type'
+alias ls='exa'
+alias lg='exa -la --header --git'
 
 # Packages
 alias archupdate='sudo pacman -Syu'

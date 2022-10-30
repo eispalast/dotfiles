@@ -6,7 +6,9 @@ EDITOR=nvim
 VISUAL=code
 bindkey -v
 
-#source ~/.fonts/*.sh
+# source ~/.fonts/*.sh
+# get this plugin at https://github.com/agkozak/zsh-z/blob/master/zsh-z.plugin.zsh
+source ~/scripts/zsh-z.plugin.zsh  
 source ~/.local/share/icons-in-terminal/icons_bash.sh
 setopt PROMPT_SUBST
 # End of lines configured by zsh-newuser-install
@@ -49,6 +51,19 @@ lfcd () {
 bindkey -s '^o' 'lfcd\n'
 
 
+# fd - cd to selected directory
+fd() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune \
+				  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
+
+vf(){
+	local filename
+	filename=$(find ${1:-.} -type f -print 2> /dev/null |fzf) &&
+	nvim "$filename"
+}
 color_decider(){
 	if (( $(pwd | grep "home" | wc -l ) > 0)) then
         echo "%F{green}"

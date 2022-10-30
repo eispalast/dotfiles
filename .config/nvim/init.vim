@@ -7,6 +7,7 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'luochen1990/rainbow'
 Plug 'puremourning/vimspector'
 Plug 'ryanoasis/vim-devicons'
+Plug 'https://github.com/vim-python/python-syntax'
 call plug#end()
 
 let mapleader = "," " map leader to comma
@@ -35,7 +36,9 @@ let g:rainbow_conf = 	{
 " extended NERDTreeFeatures
 " Open the existing NERDTree on each new tab.
 
-
+" Python highlight options
+let g:python_highlight_builtins = 1
+let g:python_highlight_func_calls = 1
 autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
 let n_tree_open = 0
 let n_tree_active = 0
@@ -121,10 +124,10 @@ nnoremap <A-p> <ESC>:echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
 
 vnoremap <C-7> <ESC>:call nerdcommenter#Comment('x','toggle')<CR>
 
-:set nu
-:set rnu
-:set tabstop=4
-:set shiftwidth=4
+set nu
+set rnu
+set tabstop=4
+set shiftwidth=4
 set nowrap
 set ignorecase
 set smartcase
@@ -144,6 +147,13 @@ nmap <leader>do :VimspectorShowOutput
 " Working with pairs 
 autocmd FileType * let b:coc_pairs_disabled = ["<"]
 
+
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm(): "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+
 " Open curly brackets in a smart way (I hope)
 func Between_curly()
 		let current = getline(".")[col(".")-2]
@@ -156,7 +166,7 @@ func Between_curly()
 endfunc
 
 
-inoremap <expr> <CR> Between_curly() ? "\<CR>\<ESC>O" : "\<CR>"
+"inoremap <expr> <CR> Between_curly() ? "\<CR>\<ESC>O" : "\<CR>"
 
 func Increase_num()
 	let current = getline(".")[col(".")-1]

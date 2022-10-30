@@ -47,3 +47,6 @@
 :hi Directory guifg=#50c9b0
 :hi NERDTreeExecFile guifg=#da70d6
 ":hi Title gui=bold
+
+" Python
+:hi link PythonImport generalPink

@@ -1,7 +1,7 @@
 #!/bin/bash
 # Set Display resolution and mirror screen
-xrandr --output eDP-1 --mode 2256x1504 --set 'scaling mode'  'None' --dpi 144
-xrandr --output HDMI-1 --mode 1920x1080 --left-of eDP-1
+xrandr --output eDP-1 --mode 2256x1504 --set 'scaling mode'  'None' --dpi 144 --rotate normal
+xrandr --output HDMI-1 --mode 1920x1080 --left-of eDP-1 --rotate normal
 
 touchscreen=$(xinput list | grep "Pen Pen" | sed 's/.*id=//' | cut -d "[" -f 1 | tr -d -c 0-9)
 eraser=$(xinput list | grep "Pen Eraser" | sed 's/.*id=//' | cut -d "[" -f 1 | tr -d -c 0-9)

@@ -19,4 +19,5 @@ picom --config ~/.config/picom/picom.conf -b
 nextcloud=$(ls ~/exchange/software | grep Nextcloud | tail -n 1)
 ~/exchange/software/$nextcloud &
 
+#~/exchange/software/kmonad/startkmonadkoylight.sh
 ~/.config/awesome/startkmonad.sh

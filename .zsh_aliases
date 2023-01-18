@@ -22,6 +22,7 @@ alias alsamixer='alsamixer -c 0'
 alias rr='ranger'
 alias vim='nvim'
 alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
+alias nau='nautilus . &'
 
 # cd to favourite dirs
 alias cdd='cd ~/Downloads'

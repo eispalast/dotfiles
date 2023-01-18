@@ -18,6 +18,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
+local freedesktop = require("freedesktop")
 local icons_path = "/home/timo/.config/awesome/mytheme/icons/"
 
 -- {{{ Error handling
@@ -92,11 +93,20 @@ myawesomemenu = {
    { "quit", function() awesome.quit() end },
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal }
-                                  }
-                        })
+--mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
+--                                    { "open terminal", terminal }
+--                                  }
+--                        })
 
+mymainmenu = freedesktop.menu.build({
+	before={
+		{"Awesome", myawesomemenu, beautiful.awesome_icon},
+
+	}, 
+	after ={
+		{"Terminal",terminal},	
+	}
+})
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
 
@@ -469,8 +479,12 @@ globalkeys = gears.table.join(
               {description = "open Vim", group = "launcher"}),
     awful.key({ modkey,           }, "b", function () awful.spawn("chromium") end,
               {description = "open Browser", group = "launcher"}),
+    awful.key({ modkey,"Shift"           }, "s", function () awful.spawn("ksnip") end,
+              {description = "open Browser", group = "launcher"}),
     awful.key({ modkey,           }, "e", function () awful.spawn(terminal.." -e ranger") end,
               {description = "open Ranger", group = "launcher"}),
+    awful.key({ modkey,           }, "g", function () awful.spawn(terminal.." -e gomuks") end,
+              {description = "open Gomuks", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,

@@ -23,6 +23,7 @@ alias rr='ranger'
 alias vim='nvim'
 alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
 alias nau='nautilus . &'
+alias kdiff='kitty +kitten diff'
 
 # cd to favourite dirs
 alias cdd='cd ~/Downloads'
@@ -53,3 +54,6 @@ alias vardc='deactivate'
 
 # Network
 alias sshpi='ssh timo@192.168.0.17'
+
+# git
+alias gitt='git log --all --decorate --oneline --graph'

@@ -162,6 +162,11 @@ require('onedark').setup{
 require ('onedark').load()
 
 
+vim.o.rnu = true
+vim.o.tabstop=4
+vim.o.shiftwidth=4
+vim.o.wrap=false
+vim.o.scrolloff=5
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -465,53 +470,137 @@ cmp.setup {
   },
 }
 
+
+--moving lines keymaps
+vim.keymap.set('i', '<A-Down>', '<ESC> ddpi')
+vim.keymap.set('n','<A-Down>', 'ddp')
+vim.keymap.set('i','<A-Up>', '<ESC> kddpki')
+vim.keymap.set('n','<A-Up>','kddpk')
+
+-- copy lines up/down
+vim.keymap.set('i', '<A-S-Down>', '<ESC> yypi')
+vim.keymap.set('i', '<A-S-j>', '<ESC> yypi')
+vim.keymap.set('n', '<A-S-Down>', 'yyp')
+vim.keymap.set('n', '<A-S-j>', 'yyp')
+vim.keymap.set('i', '<A-S-Up>', '<ESC> yypki')
+vim.keymap.set('i', '<A-S-k>', '<ESC> yypki')
+vim.keymap.set('n', '<A-S-Up>', 'yypk')
+vim.keymap.set('n', '<A-S-k>', 'yypk')
+
+--quick save
+vim.keymap.set({'n','i'},'<C-s>', '<ESC>:w<CR>')
+
+-- work with splits
+vim.keymap.set({'i','n'},'<A-v>', '<ESC>:vsplit<CR> :wincmd l <CR>')
+vim.keymap.set({'i','n'},'<A-s>', '<ESC>:split<CR> :wincmd j <CR>')
+vim.keymap.set({'i','n'},'<A-h>', '<ESC>:wincmd h<CR>')
+vim.keymap.set({'i','n'},'<A-l>', '<ESC>:wincmd l<CR>')
+vim.keymap.set({'i','n'},'<A-j>', '<ESC>:wincmd j<CR>')
+vim.keymap.set({'i','n'},'<A-k>', '<ESC>:wincmd k<CR>')
+
+vim.keymap.set('i','jk','<ESC>')
+
+-- return the symbol under the cursor
+-- when in insert mode call with offset = -1 to get symbol in front of cursor
+-- and offset = 0 to get symbol after cursor
+function current_symbol(offset)
+    local win = vim.api.nvim_get_current_win()
+    local col = vim.api.nvim_win_get_cursor(win)[2]
+    local line = vim.api.nvim_get_current_line()
+  return(line:sub(col+1+offset,col+1+offset))
+end
+
+-- returns true if the symbol after the cursor is the symbol given as argument
+function match_next(symbol)
+    return current_symbol(0)==symbol
+end
+
+function between_pair(one_pair)
+    return current_symbol(-1) == one_pair[1] and current_symbol(0)==one_pair[2]
+end
+
+function between_pairs(all_pairs)
+    for i,p in ipairs(all_pairs) do
+        if between_pair(p) then
+            return true
+        end
+    end
+    return false
+end
+
+function smart_return(pairs)
+    if between_pairs(pairs) then
+        return '<CR><ESC>O'
+    else
+        return '<CR>'
+    end
+end
+-- inserts a symbol or moves to right, if the next symbol is the same symbol
+-- exception: "" and '' are only inserted twice if there is no next symbol or a )
+function insert_or_skip(symbol)
+    if match_next(symbol) then
+        return '<ESC>la'
+    else
+        -- extra handling for string symbols
+        if symbol == '\'' or symbol == '"' then
+            if current_symbol(0)=="" or current_symbol(0)==')' then
+                return symbol..symbol..'<ESC>i'
+            else
+                return symbol
+            end
+        end
+        return symbol
+    end
+end
+
+-- insert as pairs
+local pairs = {{'(',')'},{'[',']'},{'\"','\"'},{'\'','\''},{'{','}'}}
+for i,v in ipairs(pairs) do
+  vim.keymap.set('i',v[1],v[1]..v[2]..'<ESC>i')
+  vim.keymap.set('i',v[2],function() return insert_or_skip(v[2]) end,{ expr=true})
+end
+
+vim.keymap.set('i','<CR>',function() return smart_return(pairs) end, { expr=true} )
+
+vim.keymap.set('i', '<BS>', function() if between_pairs(pairs) then return '<BS><Del>' else return '<BS>' end end, { expr=true})
+
+
+-- Increase and decrese numbers
+function count(updown)
+    local current_word = vim.call('expand','<cword>')
+    local as_num = tonumber(current_word)
+    if as_num then
+        if updown == '+' then
+            as_num = as_num+1
+        elseif updown == '-' then
+            as_num = as_num-1
+        else
+            return
+        end
+        return "<ESC>diwa" .. as_num .. "<ESC>"
+    else
+        print("no number")
+    end
+end
+vim.keymap.set('n','+', function() return count("+") end,{ expr=true })
+vim.keymap.set('n','-', function() return count("-") end,{ expr=true })
+
+--random mappings to test functions
+--vim.keymap.set({'n'},'<A-ä>', function() return match_next("f") end,{ expr=true })
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 EOF
 
 
 
-let mapleader = " " "map leader to comma
-
-
-"Coc options
-
-"nmap <silent> gd <Plug>(coc-definition)
-"nmap <silent> gy <Plug>(coc-type-definition)
-"nmap <silent> gi <Plug>(coc-implementation)
-"nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-"nnoremap <silent> K :call ShowDocumentation()<CR>
-
-"function! ShowDocumentation()
-  "if CocAction('hasProvider', 'hover')
-    "call CocActionAsync('doHover')
-  "else
-    "call feedkeys('K', 'in')
-  "endif
-"endfunction
-
-" colorscheme
-"set termguicolors
-"colorscheme vsc
-
-" Rainbow parentheses
-let g:rainbow_active = 1
-let g:rainbow_conf = 	{
-							\'guifgs': ['#fcd603','#da70d6', '#199eff','#cf7b57'  ],
-							\'separately':{
-								\'nerdtree':0
-							\}
-						\}
-" keybindings 
 
 " extended NERDTreeFeatures
 " Open the existing NERDTree on each new tab.
 
 " Python highlight options
-let g:python_highlight_builtins = 1
-let g:python_highlight_func_calls = 1
+"let g:python_highlight_builtins = 1
+"let g:python_highlight_func_calls = 1
 autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
 let n_tree_open = 0
 let n_tree_active = 0
@@ -547,65 +636,14 @@ nnoremap <expr> <C-t> NT_toggle()
 
 nnoremap <expr> <C-ü> NT_smart_tab_switch() 
 
-" move line 
-inoremap <A-Down> <ESC> ddpi
-inoremap <A-j> <ESC> ddpi
-nnoremap <A-Down> ddp
-inoremap <A-Up> <ESC> kddpki
-inoremap <A-k> <ESC> kddpki
-nnoremap <A-Up> kddpk
 
-" copy line up/down
-inoremap <A-S-Down> <ESC> yypi
-inoremap <A-S-j> <ESC> yypi
-nnoremap <A-S-Down> yyp
-nnoremap <A-S-j> yyp
-inoremap <A-S-Up> <ESC> yypki
-inoremap <A-S-k> <ESC> yypki
-nnoremap <A-S-Up> yypk
-nnoremap <A-S-k> yypk
-
-" quicksave
-inoremap <C-s> <ESC>:w<CR>
-nnoremap <C-s> <ESC>:w<CR>
 
 " quick exit
 inoremap <expr> <C-q> Smart_exit()
 nnoremap <expr> <C-q> Smart_exit()
 
-" work with splits
-inoremap <A-v> <ESC>:vsplit<CR> :wincmd l <CR>
-nnoremap <A-v> <ESC>:vsplit<CR> :wincmd l <CR>
 
-inoremap <A-s> <ESC>:split<CR> :wincmd j <CR>
-nnoremap <A-s> <ESC>:split<CR> :wincmd j <CR>
 
-inoremap <A-h> <ESC>:wincmd h<CR>
-nnoremap <A-h> <ESC>:wincmd h<CR>
-
-inoremap <A-l> <ESC>:wincmd l<CR>
-nnoremap <A-l> <ESC>:wincmd l<CR>
-
-nnoremap <A-j> <ESC>:wincmd j<CR>
-inoremap <A-j> <ESC>:wincmd j<CR>
-
-inoremap <A-k> <ESC>:wincmd k<CR>
-nnoremap <A-k> <ESC>:wincmd k<CR>
-
-inoremap <A-p> <ESC>:echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
-nnoremap <A-p> <ESC>:echo synIDattr(synID(line("."), col("."), 1), "name")<CR>
-
-vnoremap <C-7> <ESC>:call nerdcommenter#Comment('x','toggle')<CR>
-
-set nu
-set rnu
-set tabstop=4
-set shiftwidth=4
-set nowrap
-set ignorecase
-set smartcase
-set scrolloff=5
-inoremap jk <ESC>
 filetype plugin on
 " Debugging
 
@@ -617,104 +655,5 @@ nmap <leader>de :VimspectorEval
 nmap <leader>dw :VimspectorWatch
 nmap <leader>do :VimspectorShowOutput
 
-" Working with pairs 
-"autocmd FileType * let b:coc_pairs_disabled = ["<"]
-
-
-
-" Make <CR> to accept selected completion item or notify coc.nvim to format
-" <C-g>u breaks current undo, please make your own choice.
-"inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm(): "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-
-" Open curly brackets in a smart way (I hope)
-func Between_brackets()
-		let current = getline(".")[col(".")-2]
-		if current == '{'
-				if getline(".")[col(".")-1] == "}"
-						return v:true
-				endif
-		endif
-		if current == '('
-				if getline(".")[col(".")-1] == ")"
-						return v:true
-				endif
-		endif
-		if current == '['
-				if getline(".")[col(".")-1] == "]"
-						return v:true
-				endif
-		endif
-		return v:false
-endfunc
-
-inoremap <expr> <CR> Between_brackets() ? "\<CR>\<ESC>O" : "\<CR>"
-
-"Pairing opening and closing brackets
-" returns true if the next symbol is a closing normal bracket: )
-func Before_closing_round()
-  if getline(".")[col(".")-1] == ")"
-    return v:true
-  endif
-  return v:false
-endfunc
-
-func Before_closing_square()
-  if getline(".")[col(".")-1] == "]"
-    return v:true
-  endif
-  return v:false
-endfunc
-
-func Before_closing_curly()
-  if getline(".")[col(".")-1] == "}"
-    return v:true
-  endif
-  return v:false
-endfunc
-
-inoremap ( ()<ESC>i
-inoremap <expr> ) Before_closing_round() ? "\<ESC>la" : ")"
-
-inoremap [ []<ESC>i
-inoremap <expr> ] Before_closing_square() ? "\<ESC>la" : "]"
-
-inoremap { {}<ESC>i
-inoremap <expr> } Before_closing_curly() ? "\<ESC>la" : "}"
-
-"deleting brackets pairwise
-inoremap <expr> <BS> Between_brackets() ? "\<BS>\<Del>" : "\<BS>"
-
-" Increase and decrease numbers
-func Increase_num()
-	let current = getline(".")[col(".")-1]
-	if current >= '0' && current <= '9'
-		if current == '9'
-			let new = '0'
-		else
-			let new = current+1
-		endif
-		call feedkeys("r")
-		call feedkeys (new)
-	endif
-endfunc
-
-
-func Decrease_num()
-	let current = getline(".")[col(".")-1]
-	if current >= '0' && current <= '9'
-		if current == '0'
-			let new = '9'
-		else
-			let new = current-1
-		endif
-		call feedkeys("r")
-		call feedkeys (new)
-	endif
-endfunc
-
-
-nnoremap + <ESC>:call Increase_num()<CR>
-nnoremap - :call Decrease_num()<CR>
 
 command! Scratch lua require'tools'.makeScratch()

@@ -1,18 +1,5 @@
-let g:vimspector_enable_mappings = 'HUMAN'
-call plug#begin()
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'preservim/nerdtree'
-Plug 'preservim/nerdcommenter'
-Plug 'tomasiser/vim-code-dark'
-"Plug 'luochen1990/rainbow'
-Plug 'puremourning/vimspector'
-Plug 'ryanoasis/vim-devicons'
-Plug 'https://github.com/vim-python/python-syntax'
-Plug 'kmonad/kmonad-vim'
-call plug#end()
+vim.g.vimspector_enable_mappings = 'HUMAN'
 
-
-lua << EOF
 -- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 local is_bootstrap = false
@@ -25,7 +12,10 @@ end
 require('packer').startup(function(use)
   -- Package manager
   use 'wbthomason/packer.nvim'
-
+  use 'preservim/nerdcommenter'
+  use 'puremourning/vimspector'
+  use 'ryanoasis/vim-devicons'
+  use 'kmonad/kmonad-vim'
   use { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     requires = {
@@ -74,12 +64,23 @@ require('packer').startup(function(use)
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
-
-  use {
-	"windwp/nvim-autopairs",
-    config = function() require("nvim-autopairs").setup {} end
-}
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
+use {
+  "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
+    requires = { 
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    },
+    config= function()
+        require("neo-tree").setup({
+            close_if_last_window = false
+        })
+    end
+  }
+
+
   local has_plugins, plugins = pcall(require, 'custom.plugins')
   if has_plugins then
     plugins(use)
@@ -141,9 +142,13 @@ vim.wo.signcolumn = 'yes'
 vim.o.termguicolors = true
 --vim.cmd [[colorscheme onedark]]
 require('onedark').setup{
-  style = 'darker',
+  style = 'dark',
   colors = {
     bg0='#041828',
+    bg1='#041828',
+    bg2='#041828',
+    bg3='#555555',
+    bg_d='#041828',
     purple='#C587C0',
     cyan='#50C9B0',
     fg='#9DDBFE',
@@ -491,12 +496,12 @@ vim.keymap.set('n', '<A-S-k>', 'yypk')
 vim.keymap.set({'n','i'},'<C-s>', '<ESC>:w<CR>')
 
 -- work with splits
-vim.keymap.set({'i','n'},'<A-v>', '<ESC>:vsplit<CR> :wincmd l <CR>')
-vim.keymap.set({'i','n'},'<A-s>', '<ESC>:split<CR> :wincmd j <CR>')
-vim.keymap.set({'i','n'},'<A-h>', '<ESC>:wincmd h<CR>')
-vim.keymap.set({'i','n'},'<A-l>', '<ESC>:wincmd l<CR>')
-vim.keymap.set({'i','n'},'<A-j>', '<ESC>:wincmd j<CR>')
-vim.keymap.set({'i','n'},'<A-k>', '<ESC>:wincmd k<CR>')
+vim.keymap.set({'i','n'},'<A-v>', '<ESC>:vsplit<CR> :wincmd l <CR>',{ silent=true})
+vim.keymap.set({'i','n'},'<A-s>', '<ESC>:split<CR> :wincmd j <CR>',{ silent=true})
+vim.keymap.set({'i','n'},'<A-h>', '<ESC>:wincmd h<CR>',{ silent=true})
+vim.keymap.set({'i','n'},'<A-l>', '<ESC>:wincmd l<CR>',{ silent=true})
+vim.keymap.set({'i','n'},'<A-j>', '<ESC>:wincmd j<CR>',{ silent=true})
+vim.keymap.set({'i','n'},'<A-k>', '<ESC>:wincmd k<CR>',{ silent=true})
 
 vim.keymap.set('i','jk','<ESC>')
 
@@ -588,72 +593,61 @@ vim.keymap.set('n','-', function() return count("-") end,{ expr=true })
 --random mappings to test functions
 --vim.keymap.set({'n'},'<A-ä>', function() return match_next("f") end,{ expr=true })
 
+--juggle neo-tree
+vim.g.neotree_open=false
+function neo_tree_toggle()
+    if vim.g.neotree_open then
+        vim.cmd('Neotree close')
+        vim.g.neotree_open = false
+    else
+        vim.cmd('Neotree reveal')
+        vim.g.neotree_open = true
+    end
+
+end
+
+function mirror_neo_tree_status()
+    if vim.g.neotree_open then
+        vim.cmd('Neotree show')
+    else
+        vim.cmd('Neotree close')
+    end
+end
+
+
+function smart_close()
+    if vim.g.neotree_open then
+        vim.cmd('Neotree close')
+    end
+    vim.cmd('quit')
+end
+
+vim.api.nvim_create_autocmd({"TabNew"}, {
+  callback = mirror_neo_tree_status,  -- Or myvimfun
+})
+vim.api.nvim_create_autocmd({"TabEnter"}, {
+  callback = mirror_neo_tree_status,  -- Or myvimfun
+})
+
+vim.keymap.set({'i','n'},'<C-t>',neo_tree_toggle)
+vim.keymap.set({'i','n'},'<C-q>',smart_close)
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-EOF
+
+
+--Debugging
+
+vim.keymap.set('n', '<leader>dd', ':call vimspector#Launch()<CR>',{ silent=true})
+vim.keymap.set('n', '<leader>db', ':make<CR> :call vimspector#Launch()<CR>',{ silent=true})
+vim.keymap.set('n', '<F29>' ,':make<CR> :call vimspector#Launch()<CR> " F29= CTRL+F5',{ silent=true})
+vim.keymap.set('n', '<leader>dx', ':VimspectorReset<CR>',{ silent=true})
+vim.keymap.set('n', '<leader>de', ':VimspectorEval',{ silent=true})
+vim.keymap.set('n', '<leader>dw' ,':VimspectorWatch',{ silent=true})
+vim.keymap.set('n', '<leader>do' ,':VimspectorShowOutput',{ silent=true})
 
 
 
 
-" extended NERDTreeFeatures
-" Open the existing NERDTree on each new tab.
-
-" Python highlight options
-"let g:python_highlight_builtins = 1
-"let g:python_highlight_func_calls = 1
-autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
-let n_tree_open = 0
-let n_tree_active = 0
-func NT_toggle()
-		call feedkeys("\<ESC>:NERDTreeToggle\<CR>")
-		if g:n_tree_open == 1
-				let g:n_tree_open = 0
-		else
-				let g:n_tree_open = 1 
-		endif
-			
-endfunc
-func NT_smart_tab_switch()
-		if g:n_tree_open ==1
-				call feedkeys("\<ESC> gt :NERDTreeFind\<CR> :wincmd l \<CR>")
-		else
-				call feedkeys("\<ESC>gt :NERDTreeClose\<CR> ")
-				
-		endif
-
-endfunc
-
-func Smart_exit()
-		if g:n_tree_open == 1
-				call feedkeys("\<ESC>:NERDTreeClose\<CR> :q \<CR> ")
-		else
-				call feedkeys("\<ESC>:q\<CR>")
-		endif
-
-endfunc		
-inoremap <expr> <C-t> NT_toggle() 
-nnoremap <expr> <C-t> NT_toggle() 
-
-nnoremap <expr> <C-ü> NT_smart_tab_switch() 
 
 
-
-" quick exit
-inoremap <expr> <C-q> Smart_exit()
-nnoremap <expr> <C-q> Smart_exit()
-
-
-
-filetype plugin on
-" Debugging
-
-nmap <leader>dd :call vimspector#Launch()<CR>
-nmap <leader>db :make<CR> :call vimspector#Launch()<CR>
-nmap <F29> :make<CR> :call vimspector#Launch()<CR> " F29= CTRL+F5
-nmap <leader>dx :VimspectorReset<CR>
-nmap <leader>de :VimspectorEval
-nmap <leader>dw :VimspectorWatch
-nmap <leader>do :VimspectorShowOutput
-
-
-command! Scratch lua require'tools'.makeScratch()

@@ -1,8 +1,4 @@
 vim.g.vimspector_enable_mappings = 'HUMAN'
-require('tools')
-require('movement')
-require('pairs')
-require('neotree_config')
 -- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 local is_bootstrap = false
@@ -479,6 +475,10 @@ cmp.setup {
 }
 
 
+require('tools')
+require('movement')
+require('pairs')
+require('neotree_config')
 --random mappings to test functions
 --vim.keymap.set({'n'},'<A-ä>', function() return match_next("f") end,{ expr=true })
 -- The line beneath this is called `modeline`. See `:help modeline`

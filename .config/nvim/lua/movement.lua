@@ -1,6 +1,4 @@
-
-
---moving lines keymaps
+-- moving lines keymaps
 vim.keymap.set('i', '<A-Down>', '<ESC> ddpi')
 vim.keymap.set('n','<A-Down>', 'ddp')
 vim.keymap.set('i','<A-Up>', '<ESC> kddpki')
@@ -25,5 +23,7 @@ vim.keymap.set({'i','n'},'<A-l>', '<ESC>:wincmd l<CR>',{ silent=true})
 vim.keymap.set({'i','n'},'<A-j>', '<ESC>:wincmd j<CR>',{ silent=true})
 vim.keymap.set({'i','n'},'<A-k>', '<ESC>:wincmd k<CR>',{ silent=true})
 
-
+-- switching tabs
+vim.keymap.set({'i','n'},'<C-ü>','gt')
+vim.keymap.set({'i','n'},'<C-ä>','gT')
 

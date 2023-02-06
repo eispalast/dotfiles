@@ -36,7 +36,7 @@ alias cdt='cd ~/tubcloud'
 alias vzr='nvim ~/.zshrc'
 alias vza='nvim ~/.zsh_aliases'
 alias vaw='nvim ~/.config/awesome/rc.lua'
-alias vvi="nvim ~/.config/nvim/init.vim"
+alias vvi="nvim ~/.config/nvim/init.lua"
 
 # edit configs with vs code
 alias czr='code ~/.zshrc'

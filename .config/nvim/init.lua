@@ -52,6 +52,8 @@ require('packer').startup(function(use)
   use 'tpope/vim-rhubarb'
   use 'lewis6991/gitsigns.nvim'
 
+    -- git diff view
+    use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
   use 'navarasu/onedark.nvim' -- Theme inspired by Atom
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
@@ -71,12 +73,7 @@ use {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
-    },
-    config= function()
-        require("neo-tree").setup({
-            close_if_last_window = false
-        })
-    end
+    }
   }
 
 
@@ -111,6 +108,21 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = vim.fn.expand '$MYVIMRC',
 })
 
+require('neo-tree').setup({
+    sort_case_insensitive = true,
+    default_component_configs = {
+        git_status = {
+            symbols ={
+                added = "",
+                modified = "",
+            }
+        }
+    },
+    window={
+        width = 30
+    }
+
+})
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
@@ -152,15 +164,18 @@ require('onedark').setup{
     cyan='#50C9B0',
     fg='#9DDBFE',
     orange='#CD9279',
-    green='#6A9957'
+    green='#6A9957',
+    myyellow='#DBDBAA'
   },
   highlights = {
-    ["@function"]={fg='#DBDBAA'},
+    ["@function"]={fg='$myyellow'},
     ["@type.builtin"]={fg='$blue'},
     ["@type"]={fg='$cyan'},
     ["@parameter"]={fg='$fg'},
     ["@string"]={fg='$orange'},
     ["@comment"]={fg='$green'},
+    ["NeotreeGitUntracked"]={fg='$cyan', fmt='none'},
+    ["NeoTreeGitModified"]={fg='$myyellow'}
       }
 }
 require ('onedark').load()

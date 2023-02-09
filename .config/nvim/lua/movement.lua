@@ -27,3 +27,15 @@ vim.keymap.set({'i','n'},'<A-k>', '<ESC>:wincmd k<CR>',{ silent=true})
 vim.keymap.set({'i','n'},'<C-ü>','gt')
 vim.keymap.set({'i','n'},'<C-ä>','gT')
 
+-- git diff view
+vim.keymap.set('n','<leader>gi',function () vim.cmd('DiffviewFileHistory') end,{silent=true})
+vim.keymap.set('n','<leader>gx',function () vim.cmd('DiffviewClose') end,{silent=true})
+
+
+-- quickly scroll and center view
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+
+-- center when searching words
+vim.keymap.set('n', 'n', 'nzz')
+vim.keymap.set('n', 'N', 'Nzz')

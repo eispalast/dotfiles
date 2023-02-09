@@ -12,4 +12,10 @@ vim.keymap.set('n', '<leader>de', ':VimspectorEval',{ silent=true})
 vim.keymap.set('n', '<leader>dw' ,':VimspectorWatch',{ silent=true})
 vim.keymap.set('n', '<leader>do' ,':VimspectorShowOutput',{ silent=true})
 
+-- put parentheses around stuff
+vim.keymap.set('v','<leader>}','s{<ESC>pa}<ESC>')
+vim.keymap.set('v','<leader>)','s(<ESC>pa)<ESC>')
+vim.keymap.set('v','<leader>]','s[<ESC>pa]<ESC>')
+vim.keymap.set('v','<leader>"','s"<ESC>pa"<ESC>')
+vim.keymap.set('v','<leader>\'','s\'<ESC>pa\'<ESC>')
 

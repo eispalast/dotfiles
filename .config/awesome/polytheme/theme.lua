@@ -8,19 +8,21 @@ local dpi = xresources.apply_dpi
 
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_themes_dir()
-local wallpaper_path = "/home/timo/.config/awesome/mytheme/"
-local colors = dofile("/home/timo/.config/awesome/mytheme/colors.lua")
+local wallpaper_path = "/home/timo/.config/awesome/polytheme/"
 local theme = {}
+
+local colors = dofile("/home/timo/.config/awesome/polytheme/colors.lua")
+
 
 theme.font          = "sans 10"
 
 theme.bg_normal     = colors.bg_normal
-theme.bg_focus      = "#25738F"
-theme.bg_urgent     = "#B758B2"
-theme.bg_minimize   = "#444444"
+theme.bg_focus      = colors.bg_focus -- active taglist item and taskbar item
+theme.bg_urgent     = colors.bg_urgent
+theme.bg_minimize   = colors.bg_minimize
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = colors.fg_normal
+theme.fg_normal     = colors.fb_normal
 theme.fg_focus      = "#C6CAAA"
 theme.fg_urgent     = "#C6CAAA"
 theme.fg_minimize   = "#C6CAAA"
@@ -28,7 +30,7 @@ theme.fg_minimize   = "#C6CAAA"
 theme.useless_gap   = dpi(2)
 theme.border_width  = dpi(2)
 theme.border_normal = "#000000"
-theme.border_focus  = "#25738F"
+theme.border_focus  = colors.bg_focus
 theme.border_marked = "#91231c"
 
 -- There are other variable sets
@@ -71,32 +73,6 @@ theme.menu_width  = dpi(100)
 -- beautiful.variable in your rc.lua
 --theme.bg_widget = "#cc0000"
 
--- Define the image to load
-theme.titlebar_close_button_normal = themes_path.."default/titlebar/close_normal.png"
-theme.titlebar_close_button_focus  = themes_path.."default/titlebar/close_focus.png"
-
-theme.titlebar_minimize_button_normal = themes_path.."default/titlebar/minimize_normal.png"
-theme.titlebar_minimize_button_focus  = themes_path.."default/titlebar/minimize_focus.png"
-
-theme.titlebar_ontop_button_normal_inactive = themes_path.."default/titlebar/ontop_normal_inactive.png"
-theme.titlebar_ontop_button_focus_inactive  = themes_path.."default/titlebar/ontop_focus_inactive.png"
-theme.titlebar_ontop_button_normal_active = themes_path.."default/titlebar/ontop_normal_active.png"
-theme.titlebar_ontop_button_focus_active  = themes_path.."default/titlebar/ontop_focus_active.png"
-
-theme.titlebar_sticky_button_normal_inactive = themes_path.."default/titlebar/sticky_normal_inactive.png"
-theme.titlebar_sticky_button_focus_inactive  = themes_path.."default/titlebar/sticky_focus_inactive.png"
-theme.titlebar_sticky_button_normal_active = themes_path.."default/titlebar/sticky_normal_active.png"
-theme.titlebar_sticky_button_focus_active  = themes_path.."default/titlebar/sticky_focus_active.png"
-
-theme.titlebar_floating_button_normal_inactive = themes_path.."default/titlebar/floating_normal_inactive.png"
-theme.titlebar_floating_button_focus_inactive  = themes_path.."default/titlebar/floating_focus_inactive.png"
-theme.titlebar_floating_button_normal_active = themes_path.."default/titlebar/floating_normal_active.png"
-theme.titlebar_floating_button_focus_active  = themes_path.."default/titlebar/floating_focus_active.png"
-
-theme.titlebar_maximized_button_normal_inactive = themes_path.."default/titlebar/maximized_normal_inactive.png"
-theme.titlebar_maximized_button_focus_inactive  = themes_path.."default/titlebar/maximized_focus_inactive.png"
-theme.titlebar_maximized_button_normal_active = themes_path.."default/titlebar/maximized_normal_active.png"
-theme.titlebar_maximized_button_focus_active  = themes_path.."default/titlebar/maximized_focus_active.png"
 
 -- put your wallpaper here or chose another path (up top)
 theme.wallpaper = wallpaper_path.."wallpaper.jpg"

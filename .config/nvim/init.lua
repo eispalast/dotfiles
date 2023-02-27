@@ -75,8 +75,11 @@ use {
       "MunifTanjim/nui.nvim",
     }
   }
+use 'habamax/vim-godot'
 
-
+use 'lervag/vimtex'
+use 'SirVer/ultisnips'
+use 'honza/vim-snippets'
   local has_plugins, plugins = pcall(require, 'custom.plugins')
   if has_plugins then
     plugins(use)
@@ -179,6 +182,12 @@ require('onedark').setup{
       }
 }
 require ('onedark').load()
+require('lspconfig').gdscript.setup{
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    }
+  }
 
 
 vim.o.rnu = true
@@ -286,7 +295,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim', 'gdscript' },
 
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
@@ -404,7 +413,7 @@ end
 local servers = {
   -- clangd = {},
   -- gopls = {},
-  -- pyright = {},
+    --pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
 
@@ -498,4 +507,3 @@ require('neotree_config')
 --vim.keymap.set({'n'},'<A-ä>', function() return match_next("f") end,{ expr=true })
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-

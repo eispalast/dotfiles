@@ -19,7 +19,12 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys")
 
 local freedesktop = require("freedesktop")
-local icons_path = "/home/timo/.config/awesome/mytheme/icons/"
+
+local theme_name = "polytheme"
+local theme_path = "/home/timo/.config/awesome/"..theme_name.."/"
+local icons_path = theme_path.."icons/"
+
+local colors = dofile(theme_path.."colors.lua")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -48,7 +53,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_configuration_dir() .. "mytheme/theme.lua")
+beautiful.init(gears.filesystem.get_configuration_dir() .. theme_name .. "/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
@@ -323,12 +328,12 @@ awful.screen.connect_for_each_screen(function(s)
         buttons = taglist_buttons,
 	   -- start add style of buttons
         style   = {
-            shape = gears.shape.rounded_rect    
+            --shape = gears.shape.rounded_rect
         },
         layout   = {
             spacing = 10,
             spacing_widget = {
-                color  = "#041828",
+                color  = colors.bg_normal,
                 --shape  = gears.shape.powerline,
                 widget = wibox.widget.separator,
             },
@@ -369,18 +374,17 @@ awful.screen.connect_for_each_screen(function(s)
         filter  = awful.widget.tasklist.filter.currenttags,
         buttons = tasklist_buttons,
 		style={
-				shape=gears.shape.rounded_rect,
+				--shape=gears.shape.rounded_rect,
 				--align="center",
 				disable_task_name=true,
-				
 		},
 		--align="center"
     }
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height=35})
-    s.mywibox.bg="#041828"
-    s.mywibox.fg="#93BFB6"
+    s.mywibox.bg= colors.bg_normal
+    s.mywibox.fg= colors.fg_normal
     s.mywibox.opacity=0.97
 
 
@@ -746,11 +750,11 @@ end)
 client.connect_signal("mouse::enter", function(c)
     c:emit_signal("request::activate", "mouse_enter", {raise = false})
 end)
-client.connect_signal("manage", function (c)
-    c.shape = function(cr,w,h)
-        gears.shape.rounded_rect(cr,w,h,15)
-    end
-end)
+--client.connect_signal("manage", function (c)
+    --c.shape = function(cr,w,h)
+        --gears.shape.rounded_rect(cr,w,h,15)
+    --end
+--end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}

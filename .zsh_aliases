@@ -21,7 +21,7 @@ alias hx='helix'
 alias alsamixer='alsamixer -c 0'
 alias rr='ranger'
 alias vim='nvim'
-alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
+#alias tlmgr='/usr/share/texmf-dist/scripts/texlive/tlmgr.pl --usermode'
 alias nau='nautilus . &'
 alias kdiff='kitty +kitten diff'
 

@@ -22,7 +22,7 @@ theme.bg_urgent     = colors.bg_urgent
 theme.bg_minimize   = colors.bg_minimize
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = colors.fb_normal
+theme.fg_normal     = colors.fg_normal
 theme.fg_focus      = "#C6CAAA"
 theme.fg_urgent     = "#C6CAAA"
 theme.fg_minimize   = "#C6CAAA"

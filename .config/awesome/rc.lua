@@ -481,7 +481,7 @@ globalkeys = gears.table.join(
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey,           }, "v", function () awful.spawn(terminal.." -e nvim") end,
               {description = "open Vim", group = "launcher"}),
-    awful.key({ modkey,           }, "b", function () awful.spawn("chromium") end,
+    awful.key({ modkey,           }, "b", function () awful.spawn("firefox") end,
               {description = "open Browser", group = "launcher"}),
     awful.key({ modkey,"Shift"           }, "s", function () awful.spawn("ksnip") end,
               {description = "open Browser", group = "launcher"}),

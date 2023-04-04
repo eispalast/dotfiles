@@ -32,7 +32,7 @@ require('packer').startup(function(use)
 
   use { -- Autocompletion
     'hrsh7th/nvim-cmp',
-    requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+    requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip', 'hrsh7th/cmp-path' },
   }
 
   use { -- Highlight, edit, and navigate code
@@ -78,8 +78,9 @@ use {
 use 'habamax/vim-godot'
 
 use 'lervag/vimtex'
-use 'SirVer/ultisnips'
-use 'honza/vim-snippets'
+-- use 'SirVer/ultisnips'
+-- use 'honza/vim-snippets'
+use 'rafamadriz/friendly-snippets'
   local has_plugins, plugins = pcall(require, 'custom.plugins')
   if has_plugins then
     plugins(use)
@@ -459,6 +460,7 @@ require('fidget').setup()
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 
+require("luasnip.loaders.from_vscode").load()
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -468,7 +470,7 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-Space>'] = cmp.mapping.complete({select = true}),
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
@@ -495,6 +497,8 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'ultisnips'},
+    { name = 'path'},
   },
 }
 

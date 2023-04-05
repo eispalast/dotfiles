@@ -197,6 +197,12 @@ vim.o.shiftwidth=4
 vim.o.wrap=false
 vim.o.scrolloff=5
 
+-- textwrap options so they only break at new words and not within words
+vim.o.breakindent=true
+vim.o.formatoptions=1
+vim.o.lbr=true
+
+
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 

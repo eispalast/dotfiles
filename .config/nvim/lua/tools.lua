@@ -19,3 +19,10 @@ vim.keymap.set('v','<leader>]','s[<ESC>pa]<ESC>')
 vim.keymap.set('v','<leader>"','s"<ESC>pa"<ESC>')
 vim.keymap.set('v','<leader>\'','s\'<ESC>pa\'<ESC>')
 
+-- quickly toggle wrap
+function Toggle_wrap()
+    vim.o.wrap = not vim.o.wrap
+end
+
+vim.keymap.set('n','<A-z>',':lua Toggle_wrap()<CR>',{silent=true,noremap=true})
+

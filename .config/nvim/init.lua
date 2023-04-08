@@ -164,6 +164,7 @@ require('onedark').setup{
     bg2='#041828',
     bg3='#555555',
     bg_d='#041828',
+    bg_l='#0c2030',
     purple='#C587C0',
     cyan='#50C9B0',
     fg='#9DDBFE',
@@ -179,7 +180,9 @@ require('onedark').setup{
     ["@string"]={fg='$orange'},
     ["@comment"]={fg='$green'},
     ["NeotreeGitUntracked"]={fg='$cyan', fmt='none'},
-    ["NeoTreeGitModified"]={fg='$myyellow'}
+    ["NeoTreeGitModified"]={fg='$myyellow'},
+    ["NormalFloat"]={bg='$bg1'},
+    ["FloatBorder"]={bg='$bg1'}
       }
 }
 require ('onedark').load()
@@ -500,6 +503,16 @@ cmp.setup {
       end
     end, { 'i', 's' }),
   },
+  window={
+        completion={
+            border = "single",
+            winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None',
+        },
+        documentation={
+            border = "single",
+            winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None',
+        }
+    },
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
@@ -517,3 +530,26 @@ require('neotree_config')
 --vim.keymap.set({'n'},'<A-ä>', function() return match_next("f") end,{ expr=true })
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+
+local _border = "single"
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover, {
+    border = _border
+  }
+)
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+  vim.lsp.handlers.signature_help, {
+    border = _border
+  }
+)
+
+vim.diagnostic.config{
+  float={border=_border}
+}
+
+require('lspconfig.ui.windows').default_options = {
+  border = _border
+}

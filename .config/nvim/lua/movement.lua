@@ -19,9 +19,15 @@ vim.keymap.set('n', '<A-S-k>', 'yypk')
 vim.keymap.set({'i','n'},'<A-v>', '<ESC>:vsplit<CR> :wincmd l <CR>',{ silent=true})
 vim.keymap.set({'i','n'},'<A-s>', '<ESC>:split<CR> :wincmd j <CR>',{ silent=true})
 vim.keymap.set({'i','n'},'<A-h>', '<ESC>:wincmd h<CR>',{ silent=true})
+vim.keymap.set({'i','n'},'<A-Left>', '<ESC>:wincmd h<CR>',{ silent=true})
 vim.keymap.set({'i','n'},'<A-l>', '<ESC>:wincmd l<CR>',{ silent=true})
+vim.keymap.set({'i','n'},'<A-Right>', '<ESC>:wincmd l<CR>',{ silent=true})
 vim.keymap.set({'i','n'},'<A-j>', '<ESC>:wincmd j<CR>',{ silent=true})
 vim.keymap.set({'i','n'},'<A-k>', '<ESC>:wincmd k<CR>',{ silent=true})
+
+-- Working with terminal
+vim.keymap.set({'i','n'},'<leader>t', '<ESC>:vsplit<CR> :wincmd l <CR> :term <CR> i',{ silent=true})
+vim.keymap.set({'t'},'<C-q>','<C-\\><C-n>')
 
 -- switching tabs
 vim.keymap.set({'i','n'},'<C-ü>','gt')
@@ -39,3 +45,5 @@ vim.keymap.set('n', '<C-d>', '<C-d>zz')
 -- center when searching words
 vim.keymap.set('n', 'n', 'nzz')
 vim.keymap.set('n', 'N', 'Nzz')
+
+

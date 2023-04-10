@@ -25,9 +25,6 @@ vim.keymap.set({'i','n'},'<A-Right>', '<ESC>:wincmd l<CR>',{ silent=true})
 vim.keymap.set({'i','n'},'<A-j>', '<ESC>:wincmd j<CR>',{ silent=true})
 vim.keymap.set({'i','n'},'<A-k>', '<ESC>:wincmd k<CR>',{ silent=true})
 
--- Working with terminal
-vim.keymap.set({'i','n'},'<leader>t', '<ESC>:vsplit<CR> :wincmd l <CR> :term <CR> i',{ silent=true})
-vim.keymap.set({'t'},'<C-q>','<C-\\><C-n>')
 
 -- switching tabs
 vim.keymap.set({'i','n'},'<C-ü>','gt')

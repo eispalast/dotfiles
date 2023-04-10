@@ -427,12 +427,6 @@ local servers = {
   -- rust_analyzer = {},
   -- tsserver = {},
 
-  sumneko_lua = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
-  },
 }
 
 -- Setup neovim lua configuration
@@ -443,7 +437,11 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Setup mason so it can manage external tooling
-require('mason').setup()
+require('mason').setup({
+  ui={
+    border="single"
+  }
+})
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
@@ -526,6 +524,7 @@ require('tools')
 require('movement')
 require('pairs')
 require('neotree_config')
+require('autocommands')
 --random mappings to test functions
 --vim.keymap.set({'n'},'<A-ä>', function() return match_next("f") end,{ expr=true })
 -- The line beneath this is called `modeline`. See `:help modeline`
@@ -553,3 +552,8 @@ vim.diagnostic.config{
 require('lspconfig.ui.windows').default_options = {
   border = _border
 }
+
+--disable semantic based highlighting (for now)
+  for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
+      vim.api.nvim_set_hl(0, group, {})
+    end

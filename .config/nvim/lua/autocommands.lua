@@ -22,3 +22,10 @@ autocmd('ModeChanged', {
     end
   end
 })
+
+autocmd('FileType',{
+  pattern = 'tex',
+  callback = function()
+    vim.o.wrap=true
+  end
+})

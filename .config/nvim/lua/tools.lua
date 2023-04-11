@@ -3,6 +3,7 @@ vim.keymap.set('i','jk','<ESC>')
 --quick save
 vim.keymap.set({'n','i'},'<C-s>', '<ESC>:w<CR>')
 
+
 --Debugging
 vim.keymap.set('n', '<leader>dd', ':call vimspector#Launch()<CR>',{ silent=true})
 vim.keymap.set('n', '<leader>db', ':make<CR> :call vimspector#Launch()<CR>',{ silent=true})

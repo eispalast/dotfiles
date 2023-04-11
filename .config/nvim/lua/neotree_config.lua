@@ -1,6 +1,6 @@
 --juggle neo-tree
 vim.g.neotree_open=false
-function neo_tree_toggle()
+local function neo_tree_toggle()
     if vim.g.neotree_open then
         vim.cmd('Neotree close')
         vim.g.neotree_open = false
@@ -11,7 +11,7 @@ function neo_tree_toggle()
 
 end
 
-function mirror_neo_tree_status()
+local function mirror_neo_tree_status()
     if vim.g.neotree_open then
         vim.cmd('Neotree show')
     else
@@ -20,11 +20,20 @@ function mirror_neo_tree_status()
 end
 
 
-function smart_close()
+local function smart_close()
     if vim.g.neotree_open then
         vim.cmd('Neotree close')
     end
     vim.cmd('quit')
+end
+
+local function smart_close_buffer()
+    vim.cmd('Neotree close')
+    vim.cmd('bd')
+    if vim.g.neotree_open then
+        vim.cmd('Neotree show')
+    end
+        vim.cmd('wincmd l')
 end
 
 vim.api.nvim_create_autocmd({"TabNew"}, {
@@ -36,3 +45,4 @@ vim.api.nvim_create_autocmd({"TabEnter"}, {
 
 vim.keymap.set({'i','n'},'<C-t>',neo_tree_toggle)
 vim.keymap.set({'i','n'},'<C-q>',smart_close)
+vim.keymap.set({'i','n'},'<leader>q',smart_close_buffer)

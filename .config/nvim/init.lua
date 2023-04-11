@@ -244,6 +244,9 @@ require('lualine').setup {
     component_separators = '|',
     section_separators = '',
   },
+    tabline={
+        lualine_a={'buffers'}
+    }
 }
 
 -- Enable Comment.nvim
@@ -368,7 +371,7 @@ require('nvim-treesitter.configs').setup {
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+--vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
@@ -557,3 +560,10 @@ require('lspconfig.ui.windows').default_options = {
   for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
       vim.api.nvim_set_hl(0, group, {})
     end
+
+
+
+-- latex
+--vim.g.vimtex_view_general_viewer = 'okular'
+--vim.g.vimtex_view_general_options = '--unique file:@pdf\\#src:@line@tex'
+vim.g.vimtex_view_method = 'sioyek'

@@ -26,9 +26,9 @@ vim.keymap.set({'i','n'},'<A-j>', '<ESC>:wincmd j<CR>',{ silent=true})
 vim.keymap.set({'i','n'},'<A-k>', '<ESC>:wincmd k<CR>',{ silent=true})
 
 
--- switching tabs
-vim.keymap.set({'i','n'},'<C-ü>','gt')
-vim.keymap.set({'i','n'},'<C-ä>','gT')
+-- switching buffers
+vim.keymap.set({'i','n'},'<C-ü>','<ESC>:bn<CR>')
+vim.keymap.set({'i','n'},'<C-ä>','<ESC>:bp<CR>')
 
 -- git diff view
 vim.keymap.set('n','<leader>gi',function () vim.cmd('DiffviewFileHistory') end,{silent=true})

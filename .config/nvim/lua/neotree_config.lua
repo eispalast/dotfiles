@@ -45,4 +45,4 @@ vim.api.nvim_create_autocmd({"TabEnter"}, {
 
 vim.keymap.set({'i','n'},'<C-t>',neo_tree_toggle)
 vim.keymap.set({'i','n'},'<C-q>',smart_close)
-vim.keymap.set({'i','n'},'<leader>q',smart_close_buffer)
+vim.keymap.set({'n'},'<leader>q',smart_close_buffer)

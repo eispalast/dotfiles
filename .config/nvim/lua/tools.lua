@@ -58,3 +58,4 @@ end
 vim.keymap.set('n','<A-t>',openTerminal)
 vim.keymap.set({'t'},'<C-q>','<C-\\><C-n>') -- quit Terminal mode, but leave the terminal window open and go to normal mode
 vim.keymap.set('t','<A-t>','<C-\\><C-n>:q<CR>') -- quit the terminal window
+

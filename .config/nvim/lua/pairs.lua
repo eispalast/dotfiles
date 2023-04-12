@@ -1,7 +1,7 @@
 -- return the symbol under the cursor
 -- when in insert mode call with offset = -1 to get symbol in front of cursor
 -- and offset = 0 to get symbol after cursor
-function current_symbol(offset)
+local function current_symbol(offset)
     local win = vim.api.nvim_get_current_win()
     local col = vim.api.nvim_win_get_cursor(win)[2]
     local line = vim.api.nvim_get_current_line()
@@ -9,15 +9,15 @@ function current_symbol(offset)
 end
 
 -- returns true if the symbol after the cursor is the symbol given as argument
-function match_next(symbol)
+local function match_next(symbol)
     return current_symbol(0)==symbol
 end
 
-function between_pair(one_pair)
+local function between_pair(one_pair)
     return current_symbol(-1) == one_pair[1] and current_symbol(0)==one_pair[2]
 end
 
-function between_pairs(all_pairs)
+local function between_pairs(all_pairs)
     for i,p in ipairs(all_pairs) do
         if between_pair(p) then
             return true
@@ -26,7 +26,7 @@ function between_pairs(all_pairs)
     return false
 end
 
-function smart_return(pairs)
+local function smart_return(pairs)
     if between_pairs(pairs) then
         return '<CR><ESC>O'
     else
@@ -35,7 +35,7 @@ function smart_return(pairs)
 end
 -- inserts a symbol or moves to right, if the next symbol is the same symbol
 -- exception: "" and '' are only inserted twice if there is no next symbol or a )
-function insert_or_skip(symbol)
+local function insert_or_skip(symbol)
     if match_next(symbol) then
         return '<ESC>la'
     else

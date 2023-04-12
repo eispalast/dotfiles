@@ -14,6 +14,7 @@ alias archupdate='sudo pacman -Syu'
 alias cleanyaycache='yay -Sc'
 alias cleancache='paccache -r'
 alias inst='sudo pacman -S'
+alias instt='pacman -Slq | fzf --multi --preview "pacman -Si {1}" | xargs -ro sudo pacman -S'
 alias uninst='sudo pacman -R'
 
 # Quickstart apps
@@ -57,3 +58,7 @@ alias sshpi='ssh timo@192.168.0.17'
 
 # git
 alias gitt='git log --all --decorate --oneline --graph'
+alias gitc='git commit'
+alias gitp='git push'
+alias gita='git add'
+alias gitaf='cat <(git ls-files -o) <(git ls-files -m) <(git ls-files -d) | fzf --preview="git diff {}" -m | xargs -ro git add'

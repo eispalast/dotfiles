@@ -94,7 +94,6 @@ parse_git_status(){
 }
 #psvar=1
 PROMPT='%(?..%F{red})$(print_ubuntu_icon)%f$(color_decider) %B%2~%f%b%# '
-#PROMPT='%(?..%F{red})$(print_ubuntu_icon)%f$(color_decider) %B%2~%f%b%# '
 RPROMPT='$(parse_git_status)$(parse_git_branch)'
 setopt auto_cd
 if [ -f ~/.zsh_aliases ]; then

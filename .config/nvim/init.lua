@@ -245,6 +245,7 @@ require('lualine').setup {
     section_separators = '',
   },
     tabline={
+        lualine_z={'tabs'},
         lualine_a={'buffers'}
     }
 }

@@ -2,7 +2,7 @@
 import os, sys
 import subprocess
 
-TEMPLATES_DIR = "/home/timo/scripts/templates"
+TEMPLATES_DIR = f"{os.path.expanduser('~')}/scripts/templates"
 pwd = os.getcwd()
 
 if len(sys.argv) >= 2:

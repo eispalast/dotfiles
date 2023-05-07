@@ -155,6 +155,9 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
 vim.o.termguicolors = true
+
+
+
 --vim.cmd [[colorscheme onedark]]
 require('onedark').setup{
   style = 'dark',
@@ -427,7 +430,7 @@ end
 local servers = {
   -- clangd = {},
   -- gopls = {},
-    --pyright = {},
+  pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
 
@@ -529,6 +532,7 @@ require('movement')
 require('pairs')
 require('neotree_config')
 require('autocommands')
+require('debugger')
 --random mappings to test functions
 --vim.keymap.set({'n'},'<A-ä>', function() return match_next("f") end,{ expr=true })
 -- The line beneath this is called `modeline`. See `:help modeline`

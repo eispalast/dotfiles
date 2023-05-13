@@ -15,6 +15,10 @@ require('packer').startup(function(use)
   use 'puremourning/vimspector'
   use 'ryanoasis/vim-devicons'
   use 'kmonad/kmonad-vim'
+  use({
+    "iamcco/markdown-preview.nvim",
+    run = function() vim.fn["mkdp#util#install"]() end,
+    })
   use { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     requires = {
@@ -195,6 +199,10 @@ require('lspconfig').gdscript.setup{
       debounce_text_changes = 150,
     }
   }
+
+-- set firefox for markdownpreview
+vim.g.mkdp_browser = 'firefox'
+
 
 
 vim.o.rnu = true
@@ -524,6 +532,7 @@ cmp.setup {
     { name = 'ultisnips'},
     { name = 'path'},
   },
+
 }
 
 

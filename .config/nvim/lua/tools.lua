@@ -54,3 +54,9 @@ vim.keymap.set('t','<A-t>','<C-\\><C-n>:q<CR>') -- quit the terminal window
 -- quickly change the capitalization of the current word. I often miss the shift key. Oppsi
 vim.keymap.set('i','~~~','<ESC>b~ea')
 
+-- quickly correct spelling mistakes.
+-- Let's break it down, shall we? 
+-- First of all, I go to normal mode, save that position in a mark
+-- Then I Jump to the previous error ([s) and correct that word with the first suggestion (1z=). 
+-- Then I jump back to the marked position 
+vim.keymap.set('i','öö','<ESC>ma[s1z=`aa')

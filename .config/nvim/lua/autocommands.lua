@@ -27,5 +27,6 @@ autocmd('FileType',{
   pattern = 'tex',
   callback = function()
     vim.o.wrap=true
+    vim.o.spell=true
   end
 })

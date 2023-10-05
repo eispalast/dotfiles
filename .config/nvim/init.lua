@@ -59,7 +59,11 @@ require("lazy").setup({
   { 'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim' },
   'navarasu/onedark.nvim', -- Theme inspired by Atom,
   'nvim-lualine/lualine.nvim', -- Fancier statusline,
-  'lukas-reineke/indent-blankline.nvim', -- Add indentation guides even on blank lines,
+  {
+    'lukas-reineke/indent-blankline.nvim', -- Add indentation guides even on blank lines,
+    main = "ibl",
+    opts={},
+  },
   'numToStr/Comment.nvim', -- "gc" to comment visual regions/lines,
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically,
 
@@ -255,10 +259,8 @@ require('lualine').setup {
 require('Comment').setup()
 
 -- Enable `lukas-reineke/indent-blankline.nvim`
--- See `:help indent_blankline.txt`
-require('indent_blankline').setup {
-  char = '┊',
-  show_trailing_blankline_indent = false,
+require("ibl").setup {
+  indent = { char = '┊' },
 }
 
 -- Gitsigns
@@ -574,5 +576,3 @@ require('lspconfig.ui.windows').default_options = {
 --vim.g.vimtex_view_general_viewer = 'okular'
 --vim.g.vimtex_view_general_options = '--unique file:@pdf\\#src:@line@tex'
 vim.g.vimtex_view_method = 'sioyek'
-
-

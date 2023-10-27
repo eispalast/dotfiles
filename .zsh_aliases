@@ -4,10 +4,10 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias -g L=' | less'
 
 #ls
-alias ll='exa -la --header --icons'
-alias llt='exa -la --header --icons --sort=type'
-alias ls='exa'
-alias lg='exa -la --header --git'
+alias ll='eza -la --header --icons'
+alias llt='eza -la --header --icons --sort=type'
+alias ls='eza'
+alias lg='eza -la --header --git'
 
 # Packages
 alias archupdate='sudo pacman -Syu'

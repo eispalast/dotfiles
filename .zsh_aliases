@@ -65,3 +65,6 @@ alias gitp='git push'
 alias gita='git add'
 alias gits='git status'
 alias gitaf='cat <(git ls-files -o) <(git ls-files -m) <(git ls-files -d) | fzf --preview="git diff {}" -m | xargs -ro git add'
+
+# create default formatter file for c-files
+alias cform='clang-format --dump-config --style="{BasedOnStyle: llvm, IndentWidth: 4}" > .clang-format'

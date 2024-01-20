@@ -16,13 +16,35 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   --"folke/which-key.nvim",
+  {
+  "folke/which-key.nvim",
+  event = "VeryLazy",
+  init = function()
+    vim.o.timeout = true
+    vim.o.timeoutlen = 1000
+  end,
+    opts = {
+      window={
+        border="double"
+      }
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    }
+  },
   --{ "folke/neoconf.nvim", cmd = "Neoconf" },
   --"folke/neodev.nvim",
   -- Package manager
   'puremourning/vimspector',
   'ryanoasis/vim-devicons',
   'kmonad/kmonad-vim',
- {"iamcco/markdown-preview.nvim", build = function() vim.fn["mkdp#util#install"]() end},
+  {
+    'chomosuke/typst-preview.nvim',
+    lazy = false, -- or ft = 'typst'
+    version = '0.1.*',
+    build = function() require 'typst-preview'.update() end,
+  },
+  { "iamcco/markdown-preview.nvim", build = function() vim.fn["mkdp#util#install"]() end },
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -31,7 +53,7 @@ require("lazy").setup({
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
-      {'j-hui/fidget.nvim', tag = 'legacy'},
+      { 'j-hui/fidget.nvim', tag = 'legacy' },
 
       -- Additional lua configuration, makes nvim stuff amazing
       'folke/neodev.nvim',
@@ -40,7 +62,7 @@ require("lazy").setup({
 
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
-    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip', 'hrsh7th/cmp-path',  'rafamadriz/friendly-snippets'},
+    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip', 'hrsh7th/cmp-path', 'rafamadriz/friendly-snippets' },
   },
 
   { -- Highlight, edit, and navigate code
@@ -48,24 +70,28 @@ require("lazy").setup({
     build = ':TSUpdate',
     dependencies = 'nvim-treesitter/nvim-treesitter-textobjects'
   },
-
+  {
+'kaarmu/typst.vim',
+  ft = 'typst',
+  lazy=false,
+},
 
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
   'lewis6991/gitsigns.nvim',
 
-    -- git diff view
-  { 'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim' },
-  'navarasu/onedark.nvim', -- Theme inspired by Atom,
-  'nvim-lualine/lualine.nvim', -- Fancier statusline,
+  -- git diff view
+  { 'sindrets/diffview.nvim',       dependencies = 'nvim-lua/plenary.nvim' },
+  'navarasu/onedark.nvim',                 -- Theme inspired by Atom,
+  'nvim-lualine/lualine.nvim',             -- Fancier statusline,
   {
     'lukas-reineke/indent-blankline.nvim', -- Add indentation guides even on blank lines,
     main = "ibl",
-    opts={},
+    opts = {},
   },
   'numToStr/Comment.nvim', -- "gc" to comment visual regions/lines,
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically,
+  'tpope/vim-sleuth',      -- Detect tabstop and shiftwidth automatically,
 
 
   {
@@ -89,7 +115,7 @@ require("lazy").setup({
   },
 
   {
-  "nvim-neo-tree/neo-tree.nvim",
+    "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -98,9 +124,9 @@ require("lazy").setup({
     }
   },
 
-'lervag/vimtex',
--- use 'SirVer/ultisnips'
--- use 'honza/vim-snippets'
+  'lervag/vimtex',
+  -- use 'SirVer/ultisnips'
+  -- use 'honza/vim-snippets'
 })
 
 
@@ -111,18 +137,18 @@ require("lazy").setup({
 -- You'll need to restart nvim, and then it will work.
 
 require('neo-tree').setup({
-    sort_case_insensitive = true,
-    default_component_configs = {
-        git_status = {
-            symbols ={
-                added = "",
-                modified = "",
-            }
-        }
-    },
-    window={
-        width = 30
+  sort_case_insensitive = true,
+  default_component_configs = {
+    git_status = {
+      symbols = {
+        added = "",
+        modified = "",
+      }
     }
+  },
+  window = {
+    width = 30
+  }
 
 })
 -- [[ Setting options ]]
@@ -157,42 +183,49 @@ vim.o.termguicolors = true
 
 
 --vim.cmd [[colorscheme onedark]]
-require('onedark').setup{
+require('onedark').setup {
   style = 'dark',
   colors = {
-    bg0='#041828',
-    bg1='#041828',
-    bg2='#041828',
-    bg3='#555555',
-    bg_d='#041828',
-    bg_l='#0c2030',
-    purple='#C587C0',
-    cyan='#50C9B0',
-    fg='#9DDBFE',
-    orange='#CD9279',
-    green='#6A9957',
-    myyellow='#DBDBAA'
+    bg0 = '#041828',
+    bg1 = '#041828',
+    bg2 = '#001424',
+    bg3 = '#555555',
+    bg_d = '#041828',
+    bg_l = '#0c2030',
+    purple = '#C587C0',
+    cyan = '#50C9B0',
+    fg = '#9DDBFE',
+    orange = '#CD9279',
+    green = '#6A9957',
+    myyellow = '#DBDBAA'
   },
   highlights = {
-    ["@function"]={fg='$myyellow'},
-    ["@type.builtin"]={fg='$blue'},
-    ["@type"]={fg='$cyan'},
-    ["@parameter"]={fg='$fg'},
-    ["@string"]={fg='$orange'},
-    ["@comment"]={fg='$green'},
-    ["NeotreeGitUntracked"]={fg='$cyan', fmt='none'},
-    ["NeoTreeGitModified"]={fg='$myyellow'},
-    ["NormalFloat"]={bg='$bg1'},
-    ["FloatBorder"]={bg='$bg1'}
-      }
-}
-require ('onedark').load()
-require('lspconfig').gdscript.setup{
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    }
+    ["@function"] = { fg = '$myyellow' },
+    ["@type.builtin"] = { fg = '$blue' },
+    ["@type"] = { fg = '$cyan' },
+    ["@parameter"] = { fg = '$fg' },
+    ["@string"] = { fg = '$orange' },
+    ["@comment"] = { fg = '$green' },
+    ["NeotreeGitUntracked"] = { fg = '$cyan', fmt = 'none' },
+    ["NeoTreeGitModified"] = { fg = '$myyellow' },
+    ["NormalFloat"] = { bg = '$bg0' },
+    ["FloatBorder"] = { bg = '$bg0' }
   }
+}
+require('onedark').load()
+require('lspconfig').gdscript.setup {
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150,
+  }
+}
+require'lspconfig'.typst_lsp.setup{
+   on_attach = on_attach,
+  settings = {
+		exportPdf = "onType" -- Choose onType, onSave or never.
+        -- serverPath = "" -- Normally, there is no need to uncomment it.
+	}
+}
 
 -- set firefox for markdownpreview
 vim.g.mkdp_browser = 'firefox'
@@ -200,15 +233,15 @@ vim.g.mkdp_browser = 'firefox'
 
 
 vim.o.rnu = true
-vim.o.tabstop=4
-vim.o.shiftwidth=4
-vim.o.wrap=false
-vim.o.scrolloff=5
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.wrap = false
+vim.o.scrolloff = 5
 
 -- textwrap options so they only break at new words and not within words
-vim.o.breakindent=true
-vim.o.formatoptions=1
-vim.o.lbr=true
+vim.o.breakindent = true
+vim.o.formatoptions = 1
+vim.o.lbr = true
 
 
 -- Set completeopt to have a better completion experience
@@ -249,10 +282,10 @@ require('lualine').setup {
     component_separators = '|',
     section_separators = '',
   },
-    tabline={
-        lualine_z={'tabs'},
-        lualine_a={'buffers'}
-    }
+  tabline = {
+    lualine_z = { 'tabs' },
+    lualine_a = { 'buffers' }
+  }
 }
 
 -- Enable Comment.nvim
@@ -304,7 +337,7 @@ end, { desc = '[/] Fuzzily search in current buffer]' })
 
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>saf', function()
-    require('telescope.builtin').find_files({hidden=true})
+  require('telescope.builtin').find_files({ hidden = true })
 end, { desc = '[S]earch [A]ll [F]iles' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
@@ -424,6 +457,7 @@ local on_attach = function(_, bufnr)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
 end
+vim.keymap.set('n', '<leader>fo', function() vim.lsp.buf.format() end)
 
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -448,8 +482,8 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Setup mason so it can manage external tooling
 require('mason').setup({
-  ui={
-    border="single"
+  ui = {
+    border = "single"
   }
 })
 
@@ -487,7 +521,7 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete({select = true}),
+    ['<C-Space>'] = cmp.mapping.complete({ select = true }),
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
@@ -511,21 +545,21 @@ cmp.setup {
       end
     end, { 'i', 's' }),
   },
-  window={
-        completion={
-            border = "single",
-            winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None',
-        },
-        documentation={
-            border = "single",
-            winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None',
-        }
+  window = {
+    completion = {
+      border = "single",
+      winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None',
     },
+    documentation = {
+      border = "single",
+      winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None',
+    }
+  },
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
-    { name = 'ultisnips'},
-    { name = 'path'},
+    { name = 'ultisnips' },
+    { name = 'path' },
   },
 
 }
@@ -557,8 +591,8 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
   }
 )
 
-vim.diagnostic.config{
-  float={border=_border}
+vim.diagnostic.config {
+  float = { border = _border }
 }
 
 require('lspconfig.ui.windows').default_options = {
@@ -566,9 +600,9 @@ require('lspconfig.ui.windows').default_options = {
 }
 
 --disable semantic based highlighting (for now)
-  for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
-      vim.api.nvim_set_hl(0, group, {})
-    end
+for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
+  vim.api.nvim_set_hl(0, group, {})
+end
 
 
 

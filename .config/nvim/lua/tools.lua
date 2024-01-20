@@ -1,23 +1,23 @@
-vim.keymap.set('i','jk','<ESC>')
+vim.keymap.set('i', 'jk', '<ESC>')
 
 --quick save
-vim.keymap.set({'n','i'},'<C-s>', '<ESC>:w<CR>')
+vim.keymap.set({ 'n', 'i' }, '<C-s>', '<ESC>:w<CR>')
 
 
 
 -- put parentheses around stuff
-vim.keymap.set('v','<leader>}','s{<ESC>pa}<ESC>')
-vim.keymap.set('v','<leader>)','s(<ESC>pa)<ESC>')
-vim.keymap.set('v','<leader>]','s[<ESC>pa]<ESC>')
-vim.keymap.set('v','<leader>"','s"<ESC>pa"<ESC>')
-vim.keymap.set('v','<leader>\'','s\'<ESC>pa\'<ESC>')
+vim.keymap.set('v', '<leader>}', 's{<ESC>pa}<ESC>')
+vim.keymap.set('v', '<leader>)', 's(<ESC>pa)<ESC>')
+vim.keymap.set('v', '<leader>]', 's[<ESC>pa]<ESC>')
+vim.keymap.set('v', '<leader>"', 's"<ESC>pa"<ESC>')
+vim.keymap.set('v', '<leader>\'', 's\'<ESC>pa\'<ESC>')
 
 -- quickly toggle wrap
 function Toggle_wrap()
-    vim.o.wrap = not vim.o.wrap
+  vim.o.wrap = not vim.o.wrap
 end
 
-vim.keymap.set('n','<A-z>',':lua Toggle_wrap()<CR>',{silent=true,noremap=true})
+vim.keymap.set('n', '<A-z>', ':lua Toggle_wrap()<CR>', { silent = true, noremap = true })
 
 
 -- Working with terminal
@@ -25,7 +25,7 @@ vim.keymap.set('n','<A-z>',':lua Toggle_wrap()<CR>',{silent=true,noremap=true})
 local function findTerminal()
   local buffIds = vim.api.nvim_list_bufs()
   for i, x in pairs(buffIds) do
-    if string.find(vim.api.nvim_buf_get_name(x),"term") then
+    if string.find(vim.api.nvim_buf_get_name(x), "term") then
       return x
     end
   end
@@ -37,26 +37,32 @@ local function openTerminal()
   vim.cmd("vsplit")
   vim.cmd("wincmd l")
   local currentTerminal = findTerminal()
-  if currentTerminal~=nil then
+  if currentTerminal ~= nil then
     print("terminal found")
-    vim.cmd("buf "..currentTerminal)
+    vim.cmd("buf " .. currentTerminal)
   else
     print("no terminal found")
     vim.cmd("term")
   end
   vim.cmd("startinsert")
-
 end
-vim.keymap.set('n','<A-t>',openTerminal)
-vim.keymap.set({'t'},'<C-q>','<C-\\><C-n>') -- quit Terminal mode, but leave the terminal window open and go to normal mode
-vim.keymap.set('t','<A-t>','<C-\\><C-n>:q<CR>') -- quit the terminal window
+vim.keymap.set('n', '<A-t>', openTerminal)
+vim.keymap.set({ 't' }, '<C-q>', '<C-\\><C-n>')   -- quit Terminal mode, but leave the terminal window open and go to normal mode
+vim.keymap.set('t', '<A-t>', '<C-\\><C-n>:q<CR>') -- quit the terminal window
 
 -- quickly change the capitalization of the current word. I often miss the shift key. Oppsi
-vim.keymap.set('i','~~~','<ESC>b~ea')
+vim.keymap.set('i', '~~~', '<ESC>b~ea')
 
 -- quickly correct spelling mistakes.
--- Let's break it down, shall we? 
+-- Let's break it down, shall we?
 -- First of all, I go to normal mode, save that position in a mark
--- Then I Jump to the previous error ([s) and correct that word with the first suggestion (1z=). 
--- Then I jump back to the marked position 
-vim.keymap.set('i','öö','<ESC>ma[s1z=`aa')
+-- Then I Jump to the previous error ([s) and correct that word with the first suggestion (1z=).
+-- Then I jump back to the marked position
+vim.keymap.set('i', 'öö', '<ESC>ma[s1z=`aa')
+
+-- format python files
+vim.keymap.set('n', '<leader>fb', function()
+  local fileName = vim.api.nvim_buf_get_name(0)
+  vim.cmd(":w")
+  vim.cmd("silent :!black " .. fileName)
+end)

@@ -1,13 +1,13 @@
 local autocmd = vim.api.nvim_create_autocmd
 
 
-autocmd({"TermOpen","TermEnter"},{
-    callback = function()
-        vim.opt_local.relativenumber = false
-        vim.opt_local.number = false
-        vim.cmd "startinsert!"
-    end,
-    desc = "Terminal options",
+autocmd({ "TermOpen", "TermEnter" }, {
+  callback = function()
+    vim.opt_local.relativenumber = false
+    vim.opt_local.number = false
+    vim.cmd "startinsert!"
+  end,
+  desc = "Terminal options",
 })
 
 -- prevent luasnip from jumping around
@@ -23,10 +23,10 @@ autocmd('ModeChanged', {
   end
 })
 
-autocmd('FileType',{
+autocmd('FileType', {
   pattern = 'tex',
   callback = function()
-    vim.o.wrap=true
-    vim.o.spell=true
+    vim.o.wrap = true
+    vim.o.spell = true
   end
 })

@@ -17,12 +17,12 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   --"folke/which-key.nvim",
   {
-  "folke/which-key.nvim",
-  event = "VeryLazy",
-  init = function()
-    vim.o.timeout = true
-    vim.o.timeoutlen = 1000
-  end,
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 1000
+    end,
     opts = {
       window={
         border="double"
@@ -71,10 +71,10 @@ require("lazy").setup({
     dependencies = 'nvim-treesitter/nvim-treesitter-textobjects'
   },
   {
-'kaarmu/typst.vim',
-  ft = 'typst',
-  lazy=false,
-},
+    'kaarmu/typst.vim',
+    ft = 'typst',
+    lazy=false,
+  },
 
   -- Git related plugins
   'tpope/vim-fugitive',
@@ -127,6 +127,14 @@ require("lazy").setup({
   'lervag/vimtex',
   -- use 'SirVer/ultisnips'
   -- use 'honza/vim-snippets'
+  {
+    "chrisgrieser/nvim-scissors",
+    dependencies = "nvim-telescope/telescope.nvim", -- optional
+    opts = {
+      snippetDir = "~/.config/nvim/my_snippets",
+      jsonFormatter = "yq", -- "yq"|"jq"|"none"
+    }
+  },
 })
 
 
@@ -465,7 +473,7 @@ vim.keymap.set('n', '<leader>fo', function() vim.lsp.buf.format() end)
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  -- clangd = {},
+  clangd = {},
   -- gopls = {},
   pyright = {},
   -- rust_analyzer = {},
@@ -512,6 +520,7 @@ local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 
 require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_vscode").lazy_load({ paths={"./my_snippets"}})
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -610,3 +619,10 @@ end
 --vim.g.vimtex_view_general_viewer = 'okular'
 --vim.g.vimtex_view_general_options = '--unique file:@pdf\\#src:@line@tex'
 vim.g.vimtex_view_method = 'sioyek'
+
+
+-- Set up nvim.scissors
+vim.keymap.set("n", "<leader>se", function() require("scissors").editSnippet() end)
+
+-- When used in visual mode prefills the selection as body.
+vim.keymap.set({ "n", "x" }, "<leader>sa", function() require("scissors").addNewSnippet() end)

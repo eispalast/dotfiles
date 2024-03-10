@@ -94,7 +94,23 @@ parse_git_status(){
 }
 #psvar=1
 PROMPT='%(?..%F{red})$(print_ubuntu_icon)%f$(color_decider) %B%2~%f%b%# '
-RPROMPT='$(parse_git_status)$(parse_git_branch)'
+if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+    RPROMPT='$(parse_git_status)$(parse_git_branch)'
+    function zle-line-init zle-keymap-select {
+	    NORMAL_PROMPT='%(?..%F{red})$(print_ubuntu_icon)%f$(color_decider) %B%2~%f%b%# '
+	    VIM_PROMPT='%(?..%F{red})%f$(color_decider) %B%2~%f%b%# '
+
+	  # Set the prompt based on the current keymap
+	  if [ "${KEYMAP}" = vicmd ]; then
+		  PS1="$VIM_PROMPT"
+	  else
+		  PS1="$NORMAL_PROMPT"
+	  fi
+	  zle reset-prompt
+	}
+	zle -N zle-line-init
+	zle -N zle-keymap-select
+fi
 setopt auto_cd
 if [ -f ~/.zsh_aliases ]; then
 	. ~/.zsh_aliases
@@ -107,20 +123,7 @@ if [ -f /usr/share/fzf/key-bindings.zsh ]; then
 fi
 
 
-function zle-line-init zle-keymap-select {
-NORMAL_PROMPT='%(?..%F{red})$(print_ubuntu_icon)%f$(color_decider) %B%2~%f%b%# '
-VIM_PROMPT='%(?..%F{red})%f$(color_decider) %B%2~%f%b%# '
-  
-  # Set the prompt based on the current keymap
-  if [ "${KEYMAP}" = vicmd ]; then
-    PS1="$VIM_PROMPT"
-  else
-    PS1="$NORMAL_PROMPT"
-  fi
-  zle reset-prompt
-}
-zle -N zle-line-init
-zle -N zle-keymap-select
 
 export PATH="/home/timo/exchange/software:/home/timo/scripts:$PATH"
+export EDITOR="nvim"
 

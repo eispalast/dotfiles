@@ -135,6 +135,12 @@ require("lazy").setup({
       jsonFormatter = "yq", -- "yq"|"jq"|"none"
     }
   },
+  {
+    'stevearc/oil.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
 })
 
 
@@ -169,7 +175,7 @@ vim.o.hlsearch = false
 vim.wo.number = true
 
 -- Enable mouse mode
-vim.o.mouse = 'a'
+-- vim.o.mouse = 'a'
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -205,7 +211,9 @@ require('onedark').setup {
     fg = '#9DDBFE',
     orange = '#CD9279',
     green = '#6A9957',
-    myyellow = '#DBDBAA'
+    myyellow = '#DBDBAA',
+    mint = "#4ec9b0",
+    lightblue= '#9cdcfe'
   },
   highlights = {
     ["@function"] = { fg = '$myyellow' },
@@ -217,7 +225,15 @@ require('onedark').setup {
     ["NeotreeGitUntracked"] = { fg = '$cyan', fmt = 'none' },
     ["NeoTreeGitModified"] = { fg = '$myyellow' },
     ["NormalFloat"] = { bg = '$bg0' },
-    ["FloatBorder"] = { bg = '$bg0' }
+    ["FloatBorder"] = { bg = '$bg0' },
+    ["Structure"] = { fg = '$mint'},
+    ["Function"] = { fg = '$myyellow'},
+    ["@lsp.type.macro"] = { fg = '$blue'},
+    ["@lsp.type.parameter"] = { fg = '$orange'},
+    ["@lsp.type.variable"] = { fg ='$lightblue'},
+    ["@lsp.type.property"] = { fg ='$lightblue'},
+    ["@lsp.typemod.function.defaultLibrary.c"] = {fg= '$myyellow'}
+
   }
 }
 require('onedark').load()
@@ -267,6 +283,7 @@ vim.g.maplocalleader = ' '
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Remap for dealing with word wrap
+-- + automatically indent correctly
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
@@ -609,9 +626,9 @@ require('lspconfig.ui.windows').default_options = {
 }
 
 --disable semantic based highlighting (for now)
-for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
-  vim.api.nvim_set_hl(0, group, {})
-end
+-- for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
+--   vim.api.nvim_set_hl(0, group, {})
+-- end
 
 
 

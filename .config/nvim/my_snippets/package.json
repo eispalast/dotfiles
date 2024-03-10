@@ -1,14 +1,26 @@
 {
-    "name": "custom snippets",
-    "engines": {
-        "vscode": "^1.11.0"
-    },
-    "contributes": {
-        "snippets": [
-            {
-                "language": "c",
-                "path": "./c.json"
-            }
-        ]
-    }
+  "contributes": {
+    "snippets": [
+      {
+        "language": "c",
+        "path": "./c.json"
+      },
+      {
+        "language": [
+          "python"
+        ],
+        "path": "./python.json"
+      },
+      {
+        "language": [
+          "cpp"
+        ],
+        "path": "./cpp.json"
+      }
+    ]
+  },
+  "engines": {
+    "vscode": "^1.11.0"
+  },
+  "name": "custom snippets"
 }

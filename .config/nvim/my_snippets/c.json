@@ -1,11 +1,26 @@
 {
   "guard": {
-    "body": "if (${1:/*CONDITION*/}) return ${2:NULL};",
-    "description": "Simple guard clause",
+    "body": "if( ${1:/*CONDITION*/}) return ${2:NULL};",
     "prefix": "guard"
   },
   "rett": {
     "body": "return NULL\t;",
     "prefix": "rett"
+  },
+  "testif": {
+    "body": [
+      "if($0){",
+      "",
+      "}"
+    ],
+    "prefix": "testif"
+  },
+  "tstruct": {
+    "body": [
+      "typedef struct ${1:name}_{",
+      "\t$0",
+      "} ${1:name};"
+    ],
+    "prefix": "tstruct"
   }
 }

@@ -50,6 +50,10 @@ lfcd () {
 }
 bindkey -s '^o' 'lfcd\n'
 
+# autocompletion with ctrl+i using fzf 
+# do some research to configure it so it only triggers with ctrl+i and not with tab
+# source ~/scripts/fzf-zsh-completion.sh
+# bindkey '^I' fzf_completion
 
 # fd - cd to selected directory
 fd() {

@@ -31,8 +31,10 @@ vim.keymap.set({'n'},'ü','<ESC>:bn<CR>')
 vim.keymap.set({'n'},'Ü','<ESC>:bp<CR>')
 
 -- git diff view
-vim.keymap.set('n','<leader>gi',function () vim.cmd('DiffviewFileHistory') end,{silent=true})
-vim.keymap.set('n','<leader>gx',function () vim.cmd('DiffviewClose') end,{silent=true})
+vim.keymap.set('n','<leader>gf',function () vim.cmd('DiffviewFileHistory') end,{silent=true, desc="Diffview [f]ile History"})
+vim.keymap.set('n','<leader>go',function () vim.cmd('DiffviewOpen') end,{silent=true, desc ="Diffview [o]pen"})
+vim.keymap.set('n','<leader>gx',function () vim.cmd('DiffviewClose') end,{silent=true, desc ="Diffview close"})
+-- vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 
 
 -- quickly scroll and center view

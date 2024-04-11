@@ -27,7 +27,7 @@ vim.keymap.set('n', '<A-z>', ':lua Toggle_wrap()<CR>', { silent = true, noremap 
 local function findTerminal()
   local buffIds = vim.api.nvim_list_bufs()
   for i, x in pairs(buffIds) do
-    if string.find(vim.api.nvim_buf_get_name(x), "term") then
+    if string.find(vim.api.nvim_buf_get_name(x), "term:") then
       return x
     end
   end

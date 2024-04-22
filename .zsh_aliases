@@ -19,6 +19,8 @@ alias uninst='sudo pacman -R'
 alias pacf='pacman -Q | fzf'
 
 # Quickstart apps
+alias vsc='code --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=auto'
+alias sio='sioyek'
 alias hx='helix'
 alias alsamixer='alsamixer -c 0'
 alias rr='ranger'

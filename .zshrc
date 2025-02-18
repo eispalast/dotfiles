@@ -131,3 +131,5 @@ fi
 export PATH="/home/timo/exchange/software:/home/timo/scripts:$PATH"
 export EDITOR="nvim"
 
+# nvm (node version manager) nutzen um richtige node version zu verwenden für copilot
+# source /usr/share/nvm/init-nvm.sh

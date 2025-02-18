@@ -2,6 +2,7 @@
 alias szsh='source ~/.zshrc'
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias -g L=' | less'
+alias diss='df -h /'
 
 #ls
 alias ll='eza -la --header --icons'
@@ -20,7 +21,7 @@ alias pacf='pacman -Q | fzf'
 
 # Quickstart apps
 alias vsc='code --enable-features=UseOzonePlatform,WaylandWindowDecorations --ozone-platform-hint=auto'
-alias sio='sioyek'
+alias sio='com.github.ahrm.sioyek'
 alias hx='helix'
 alias alsamixer='alsamixer -c 0'
 alias rr='ranger'
@@ -36,6 +37,7 @@ alias cdu='cd ~/Dokumente/Uni'
 alias cdp='cd ~/Dokumente/Privat'
 alias cdsr='cd ~/Dokumente/Uni/Sysprog/Repo/systemprogrammierung/'
 alias cdt='cd ~/tubcloud'
+alias cdi='cd ~/tubcloud/M7/IntroProg/'
 
 # edit configs with vim
 alias vzr='nvim ~/.zshrc'
@@ -58,11 +60,12 @@ alias varac='source ~/exchange/envs/var/bin/activate'
 alias vardc='deactivate'
 
 # Network
-alias sshpi='ssh timo@192.168.0.17'
+alias sshpi='kitten ssh timo@raspberrypi'
 
 # git
 alias gitt='git log --all --decorate --oneline --graph'
 alias gitc='git commit'
+alias gitcm='git commit -m'
 alias gitp='git push'
 alias gita='git add'
 alias gits='git status'
@@ -70,3 +73,6 @@ alias gitaf='cat <(git ls-files -o) <(git ls-files -m) <(git ls-files -d) | fzf 
 
 # create default formatter file for c-files
 alias cform='clang-format --dump-config --style="{BasedOnStyle: llvm, IndentWidth: 4}" > .clang-format'
+
+# docker
+alias dstart='sudo systemctl start docker'

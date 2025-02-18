@@ -3,9 +3,26 @@
     "body": "if( ${1:/*CONDITION*/}) return ${2:NULL};",
     "prefix": "guard"
   },
+  "mmain": {
+    "body": [
+      "int main(int argc, char *argv[]){",
+      "\t$0",
+      "\treturn 0;",
+      "}"
+    ],
+    "prefix": "mmain"
+  },
   "rett": {
     "body": "return NULL\t;",
     "prefix": "rett"
+  },
+  "stdinc": {
+    "body": [
+      "#include <stdio.h>",
+      "#include <stdlib.h>",
+      "#include <stdint.h>"
+    ],
+    "prefix": "stdinc"
   },
   "tds": {
     "body": [

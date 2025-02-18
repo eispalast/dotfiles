@@ -86,3 +86,8 @@ vim.keymap.set('n', '<leader>fb', function()
   vim.cmd(":w")
   vim.cmd("silent :!black " .. fileName)
 end)
+
+vim.keymap.set('n','<A-u>',function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end)
+

@@ -1,0 +1,14 @@
+{
+  "fig": {
+    "body": "plt.figure(figsize=(${1:float},${2:float}),dpi=${3:float})$0",
+    "prefix": "fig"
+  },
+  "pri": {
+    "body": "print(\"$1\")$0",
+    "prefix": "pri"
+  },
+  "prif": {
+    "body": "print(f\"$1\")$0",
+    "prefix": "prif"
+  }
+}

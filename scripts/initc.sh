@@ -7,8 +7,8 @@ fi
 
 mkdir -p build src lib
 
-sed "s/PROJECT_NAME/$1/g" ~/scripts/templates/main.c >> ./src/$1.c 
-sed "s/PROJECT_NAME/$1/g" ~/scripts/templates/Makefile >> ./Makefile 
+sed "s/PROJECT_NAME/$1/g" ~/scripts/templates/main.c > ./src/$1.c 
+sed "s/PROJECT_NAME/$1/g" ~/scripts/templates/Makefile > ./Makefile 
 ~/scripts/cdebug $1
 
 # init git repo if not yet there
